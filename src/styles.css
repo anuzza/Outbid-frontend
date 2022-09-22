@@ -1,0 +1,46 @@
+.sidenav {
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 160px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: rgb(20, 20, 20); /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 10px;
+    border: 2px solid red;
+}
+.logo{
+    width:160px;
+    background-color: white;
+}
+ul {
+    font-size: 20px;
+    color: red;
+}
+li {
+    margin: 20px 0;
+}
+li a{
+    color: white;
+    text-decoration: none;
+}
+li a:hover {
+    color: palevioletred;
+}
+li a:visited{
+    color:red;
+}
+.main {
+    padding-left: 200px;
+}
+h1{
+    text-align: center;
+    background-color: black;
+    color:red;
+    border:3px dotted red;
+    text-shadow: 0 0 10px red;
+}
+p {
+    font-size:large;
+}
