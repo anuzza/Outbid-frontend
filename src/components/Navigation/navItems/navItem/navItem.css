@@ -1,0 +1,18 @@
+.nav_link {
+  font-weight: 900;
+  font-size: 14px;
+  display: inline-block;
+  padding: 0px 20px;
+}
+
+.nav_link a {
+  transition: all 0.3s ease 0s;
+  text-decoration: none;
+  color: #fff;
+}
+
+.nav_link a:hover,
+.nav_link a:focused {
+  color: #c89666;
+  transition: 0.7s;
+}
