@@ -10,7 +10,7 @@ function App() {
 
   return (
     <div className="App">
-      <Navigation user={user} />
+      <Navigation user={user} setUser={setUser} />
       <Switch>
         <Route path="/" exact component={Landing} />
         <Route
