@@ -5,8 +5,10 @@ import CustomButton from "../../components/CustomButton/CustomButton";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import Spinner from "../../components/Spinner/Spinner";
 import { Redirect } from "react-router-dom";
+import { useToasts } from "react-toast-notifications";
 
 const Auth = ({ setUser, user }) => {
+  const { addToast } = useToasts();
   const [classesName, setClasses] = useState({
     classes: ["cont"],
   });
@@ -39,10 +41,13 @@ const Auth = ({ setUser, user }) => {
       });
       setLoading(false);
       setUser(user);
+      addToast(`Welcome back ${user?.name}!`, { appearance: "success" });
+
       localStorage.setItem("token", token);
     } catch (error) {
       setLoading(false);
-      console.log(error.response.data);
+      addToast(error.response.data.error, { appearance: "error" });
+      //console.log(error.response.data);
     }
   };
 
@@ -59,10 +64,16 @@ const Auth = ({ setUser, user }) => {
       });
       setLoading(false);
       setUser(user);
+      addToast(`Welcome ${user?.name}!`, { appearance: "success" });
+
       localStorage.setItem("token", token);
     } catch (error) {
       setLoading(false);
-      console.log(error.response.data);
+      addToast(error.response.data.error, { appearance: "error" });
+
+      // alert(error.response.data.error);
+
+      //console.log(error.response.data);
     }
   };
 
