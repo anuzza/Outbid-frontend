@@ -1,16 +1,23 @@
 import "./App.css";
 import { Switch, Route } from "react-router-dom";
-import landing from "./containers/Landing/landing";
-import Auth from "./containers/Auth/auth";
+import Landing from "./containers/Landing/Landing";
+import Auth from "./containers/Auth/Auth";
 import Navigation from "./components/Navigation/Navigation";
+import { useState } from "react";
 
 function App() {
+  const [user, setUser] = useState(null);
+
   return (
     <div className="App">
-      <Navigation />
+      <Navigation user={user} />
       <Switch>
-        <Route path="/" exact component={landing} />
-        <Route path="/auth" exact component={Auth}></Route>
+        <Route path="/" exact component={Landing} />
+        <Route
+          path="/auth"
+          exact
+          component={() => <Auth setUser={setUser} user={user} />}
+        ></Route>
       </Switch>
     </div>
   );

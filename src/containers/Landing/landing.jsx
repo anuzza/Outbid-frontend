@@ -1,11 +1,13 @@
 import React from "react";
 import ImageSlider from "./Slide/ImageSlider";
 import { SliderData } from "./Slide/SliderData";
-import "./landing.css";
+import "./Landing.css";
+import SearchContainer from "../../components/SearchContainer/SearchContainer";
 
-const landing = () => {
+const Landing = () => {
   return (
     <div className="wrapper">
+      <SearchContainer />
       <div className="slides">
         <ImageSlider slides={SliderData} />
       </div>
@@ -13,4 +15,4 @@ const landing = () => {
   );
 };
 
-export default landing;
+export default Landing;

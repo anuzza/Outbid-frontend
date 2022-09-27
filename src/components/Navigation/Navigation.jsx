@@ -1,9 +1,9 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import AuthButton from "../authButton/authButton";
+import AuthButton from "../AuthButton/AuthButton";
 import "./Navigation.css";
 
-const Navigation = () => {
+const Navigation = ({ user }) => {
   const history = useHistory();
   return (
     <header className="main-header">
@@ -11,13 +11,15 @@ const Navigation = () => {
         OutBid
       </h1>
 
-      <Link to="/auth">
-        <AuthButton>Sign In</AuthButton>
-      </Link>
-
-      <Link to="/">
-        <AuthButton signout>Sign Out</AuthButton>
-      </Link>
+      {user ? (
+        <Link to="/">
+          <AuthButton signout>Sign Out</AuthButton>
+        </Link>
+      ) : (
+        <Link to="/auth">
+          <AuthButton>Sign In</AuthButton>
+        </Link>
+      )}
     </header>
   );
 };

@@ -1,6 +1,7 @@
 import React from "react";
-import "./customButton.css";
-const customButton = ({ children, width, edit, rating, admin, ...rest }) => {
+import "./CustomButton.css";
+
+const CustomButton = ({ children, width, edit, rating, admin, ...rest }) => {
   const classes = ["main-button"];
   if (rest.type === "submit") {
     classes.push("submit");
@@ -17,4 +18,4 @@ const customButton = ({ children, width, edit, rating, admin, ...rest }) => {
   );
 };
 
-export default customButton;
+export default CustomButton;

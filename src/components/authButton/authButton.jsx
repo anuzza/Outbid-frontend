@@ -1,11 +1,10 @@
 import React from "react";
-import "./authButton.css";
-const authButton = ({ signout, admin, children, save, ...rest }) => {
+import "./AuthButton.css";
+const AuthButton = ({ signout, admin, children, save, ...rest }) => {
   const classes = ["sign-in"];
   if (signout) {
     classes.push("sign-out");
   }
-
   if (admin) {
     classes.push("admin");
   }
@@ -19,4 +18,4 @@ const authButton = ({ signout, admin, children, save, ...rest }) => {
   );
 };
 
-export default authButton;
+export default AuthButton;

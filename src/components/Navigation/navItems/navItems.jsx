@@ -1,7 +1,7 @@
 import React from "react";
-import navItem from "./navItem/navItem";
-const navItems = ({}) => {
+import NavItem from "./NavItem/NavItem";
+const NavItems = ({}) => {
   return <nav></nav>;
 };
 
-export default navItems;
+export default NavItems;

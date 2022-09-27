@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import "./auth.css";
-import CustomButton from "../../components/CustomButton/customButton";
+import axios from "axios";
+import "./Auth.css";
+import CustomButton from "../../components/CustomButton/CustomButton";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import Spinner from "../../components/Spinner/Spinner";
-const Auth = ({ loading }) => {
+import { Redirect } from "react-router-dom";
+
+const Auth = ({ setUser, user }) => {
   const [classesName, setClasses] = useState({
     classes: ["cont"],
   });
@@ -13,34 +16,59 @@ const Auth = ({ loading }) => {
     name: "",
     email: "",
     password: "",
-    address: "",
   });
+  const { name, email, password } = formData;
 
-  const { name, email, password, address } = formData;
+  const [loading, setLoading] = useState(false);
 
   const handleFormChange = (e) => {
-    setformData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const clearFormValues = () => {
-    setformData({
-      name: "",
-      email: "",
-      password: "",
-      address: "",
+    setformData((prevState) => {
+      return { ...prevState, [e.target.name]: e.target.value };
     });
   };
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    try {
+      const {
+        data: { user, token },
+      } = await axios.post("http://localhost:8080/users/login", {
+        email,
+        password,
+      });
+      setLoading(false);
+      setUser(user);
+      localStorage.setItem("token", token);
+    } catch (error) {
+      setLoading(false);
+      console.log(error.response.data);
+    }
   };
 
   const handleSignupSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    try {
+      const {
+        data: { user, token },
+      } = await axios.post("http://localhost:8080/users/", {
+        name,
+        email,
+        password,
+      });
+      setLoading(false);
+      setUser(user);
+      localStorage.setItem("token", token);
+    } catch (error) {
+      setLoading(false);
+      console.log(error.response.data);
+    }
   };
+
+  if (user) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <div>
@@ -50,7 +78,6 @@ const Auth = ({ loading }) => {
       <div className={classes.join(" ")}>
         <div className="form sign-in-box">
           <h2>Welcome Back! </h2>
-          <h3>We've missed you</h3>
           <form onSubmit={(e) => handleLoginSubmit(e)}>
             <CustomInput
               onChange={(e) => handleFormChange(e)}
@@ -98,7 +125,6 @@ const Auth = ({ loading }) => {
             <div
               className="img__btn"
               onClick={() => {
-                clearFormValues();
                 setClasses({
                   classes: classes.includes("s--signup")
                     ? ["cont"]
@@ -122,15 +148,7 @@ const Auth = ({ loading }) => {
               >
                 Name
               </CustomInput>
-              <CustomInput
-                onChange={(e) => handleFormChange(e)}
-                value={address}
-                type="text"
-                name="name"
-                required
-              >
-                Full Address
-              </CustomInput>
+
               <CustomInput
                 onChange={(e) => handleFormChange(e)}
                 value={email}
@@ -149,6 +167,7 @@ const Auth = ({ loading }) => {
               >
                 Password
               </CustomInput>
+
               <CustomButton type="submit">
                 {loading ? (
                   <Spinner

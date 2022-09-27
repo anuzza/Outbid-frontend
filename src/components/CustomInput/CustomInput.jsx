@@ -1,5 +1,6 @@
 import React from "react";
 import "./CustomInput.css";
+
 const CustomInput = ({ children, ingro, ...rest }) => {
   const classes = ["custom-input"];
   if (rest.disabled) {
