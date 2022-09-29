@@ -10,6 +10,16 @@ const Navigation = ({ user, setUser }) => {
       <h1 onClick={() => history.push("/")} className="logo">
         OutBid
       </h1>
+      
+
+      {user ? (
+        <Link to="/Post">
+          <AuthButton>List Iteam</AuthButton>
+        </Link>
+      ) : (
+        <Link to="/auth"></Link>
+      )}
+
 
       {!user ? (
         <Link to="/auth">

@@ -2,6 +2,7 @@ import "./App.css";
 import { Switch, Route } from "react-router-dom";
 import Landing from "./containers/Landing/Landing";
 import Auth from "./containers/Auth/Auth";
+import IteamPost from "./containers/IteamPost/IteamPost"
 import Navigation from "./components/Navigation/Navigation";
 import { useState } from "react";
 import { ToastProvider } from "react-toast-notifications";
@@ -19,6 +20,7 @@ function App() {
         <Navigation user={user} setUser={setUser} />
         <Switch>
           <Route path="/" exact component={Landing} />
+          <Route path="/Post" exact component={() => <IteamPost user={setUser} />} />
           <Route
             path="/auth"
             exact

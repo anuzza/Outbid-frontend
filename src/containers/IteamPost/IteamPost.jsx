@@ -8,6 +8,21 @@ import { Redirect } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 
 const IteamPost = ({ user }) => {
+    const [classesName, setClasses] = useState({
+        classes: ["cont"],
+      });
+    const { classes } = classesName;
+
+
+    const [formData, setformData] = useState({
+        product_name: " ",
+        start_bid: " ",
+        condition: " ",
+        detials: " ",
+      });
+      const { product_name, start_bid, condition, details } = formData;
+
+  const [loading, setLoading] = useState(false);
 
     const handleFormChange = (e) => {
         setformData((prevState) => {
@@ -32,18 +47,18 @@ const IteamPost = ({ user }) => {
                     <form onSubmit={(e) => (e)}>
                         <CustomInput
                             onChange={(e) => handleFormChange(e)}
-                            value={pName}
-                            type="pName"
-                            name="pName"
+                            value={product_name}
+                            type="product_name"
+                            name="product_name"
                             required
                         >
                             Product Name
                         </CustomInput>
                         <CustomInput
                             onChange={(e) => handleFormChange(e)}
-                            value={sBid}
-                            type="sBid"
-                            name="sBid"
+                            value={start_bid}
+                            type="start_bid"
+                            name="start_bid"
                             required
                         >
                             Starting Bid
