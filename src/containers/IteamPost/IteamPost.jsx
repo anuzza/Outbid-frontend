@@ -33,7 +33,7 @@ const IteamPost = ({ user }) => {
 
 
     if (!user) {
-        return <Redirect to="/Auth/Auth" />;
+        return <Redirect to="/Auth" />;
     }
 
     return (
