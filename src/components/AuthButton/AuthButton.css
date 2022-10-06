@@ -3,7 +3,7 @@
   font-size: 16px;
   margin-left: 20px;
   padding: 9px 25px;
-  background-color: #fae5df;
+  background-color: #fff;
   border: none;
   border-radius: 50px;
   cursor: pointer;
@@ -12,18 +12,17 @@
 }
 
 .sign-out {
-  font-family: inherit;
   background-color: #1f190c;
   color: #fff;
 }
 
 .admin {
-  background: #fae5df;
+  background: #fff;
 }
 
 .sign-in:hover {
-  background-color: #2d2d2d;
-  color: #fff;
+  background-color: #e8e7f6;
+  color: black;
 }
 
 .save {

@@ -1,25 +1,5 @@
-* {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  list-style: none;
-  text-decoration: none;
-}
-*:before,
-*:after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
 
-body {
-  font-family: "Montserrat", sans-serif;
-  font-style: normal;
-  background: #fae5df;
-}
+
 
 .page-container {
   position: relative;
@@ -32,4 +12,6 @@ body {
 
 /*
  background: #e0e0e0;
+ #fae5df;
+ #e8e7f6
 */

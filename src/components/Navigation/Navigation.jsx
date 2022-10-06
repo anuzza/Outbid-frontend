@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import AuthButton from "../AuthButton/AuthButton";
 import "./Navigation.css";
 
@@ -10,6 +10,15 @@ const Navigation = ({ user, setUser }) => {
       <h1 onClick={() => history.push("/")} className="logo">
         OutBid
       </h1>
+      <Link
+        onClick={() => {
+          if (!user) {
+            return <Redirect to="/auth" />;
+          }
+        }}
+      >
+        <AuthButton>Post Item</AuthButton>
+      </Link>
 
       {!user ? (
         <Link to="/auth">
