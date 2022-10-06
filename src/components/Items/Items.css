@@ -1,0 +1,6 @@
+.card-wrapper {
+  margin: 5rem;
+  display: grid(600px);
+  justify-content: center;
+  align-items: center;
+}
