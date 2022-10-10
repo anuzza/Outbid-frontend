@@ -6,8 +6,16 @@ import CustomInput from "../../components/CustomInput/CustomInput";
 import Spinner from "../../components/Spinner/Spinner";
 import { Redirect } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
+import useAuthStore from "../../store/auth";
 
-const Auth = ({ setUser, user }) => {
+const Auth = () => {
+  const { setUser, authStart, user, loading } = useAuthStore((state) => ({
+    setUser: state.setUser,
+    authStart: state.authStart,
+    user: state.user,
+    loading: state.loading,
+  }));
+
   const { addToast } = useToasts();
   const [classesName, setClasses] = useState({
     classes: ["cont"],
@@ -21,8 +29,6 @@ const Auth = ({ setUser, user }) => {
   });
   const { name, email, password } = formData;
 
-  const [loading, setLoading] = useState(false);
-
   const handleFormChange = (e) => {
     setformData((prevState) => {
       return { ...prevState, [e.target.name]: e.target.value };
@@ -31,7 +37,7 @@ const Auth = ({ setUser, user }) => {
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    authStart();
     try {
       const {
         data: { user, token },
@@ -39,21 +45,19 @@ const Auth = ({ setUser, user }) => {
         email,
         password,
       });
-      setLoading(false);
-      setUser(user);
+      setUser(user, token);
       addToast(`Welcome back ${user?.name}!`, { appearance: "success" });
-
-      localStorage.setItem("token", token);
     } catch (error) {
-      setLoading(false);
-      addToast(error.response.data.error, { appearance: "error" });
+      addToast(error.response?.data?.error || error.message, {
+        appearance: "error",
+      });
       //console.log(error.response.data);
     }
   };
 
   const handleSignupSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    authStart();
     try {
       const {
         data: { user, token },
@@ -62,18 +66,13 @@ const Auth = ({ setUser, user }) => {
         email,
         password,
       });
-      setLoading(false);
-      setUser(user);
+
+      setUser(user, token);
       addToast(`Welcome ${user?.name}!`, { appearance: "success" });
-
-      localStorage.setItem("token", token);
     } catch (error) {
-      setLoading(false);
-      addToast(error.response.data.error, { appearance: "error" });
-
-      // alert(error.response.data.error);
-
-      //console.log(error.response.data);
+      addToast(error.response?.data?.error || error.message, {
+        appearance: "error",
+      });
     }
   };
 
