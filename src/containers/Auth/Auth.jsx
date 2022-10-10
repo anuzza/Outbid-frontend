@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axios from "../../utils/axios";
 import "./Auth.css";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import CustomInput from "../../components/CustomInput/CustomInput";
@@ -7,14 +7,18 @@ import Spinner from "../../components/Spinner/Spinner";
 import { Redirect } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import useAuthStore from "../../store/auth";
+import { getError } from "../../utils/error";
 
 const Auth = () => {
-  const { setUser, authStart, user, loading } = useAuthStore((state) => ({
-    setUser: state.setUser,
-    authStart: state.authStart,
-    user: state.user,
-    loading: state.loading,
-  }));
+  const { setUser, authStart, setError, user, loading } = useAuthStore(
+    ({ setUser, authStart, setError, user, loading }) => ({
+      setUser,
+      authStart,
+      setError,
+      user,
+      loading,
+    })
+  );
 
   const { addToast } = useToasts();
   const [classesName, setClasses] = useState({
@@ -41,14 +45,16 @@ const Auth = () => {
     try {
       const {
         data: { user, token },
-      } = await axios.post("http://localhost:8080/users/login", {
+      } = await axios.post("/users/login", {
         email,
         password,
       });
       setUser(user, token);
       addToast(`Welcome back ${user?.name}!`, { appearance: "success" });
     } catch (error) {
-      addToast(error.response?.data?.error || error.message, {
+      const message = getError(error);
+      setError(message);
+      addToast(message, {
         appearance: "error",
       });
       //console.log(error.response.data);
@@ -61,7 +67,7 @@ const Auth = () => {
     try {
       const {
         data: { user, token },
-      } = await axios.post("http://localhost:8080/users/", {
+      } = await axios.post("/users/", {
         name,
         email,
         password,
@@ -70,7 +76,9 @@ const Auth = () => {
       setUser(user, token);
       addToast(`Welcome ${user?.name}!`, { appearance: "success" });
     } catch (error) {
-      addToast(error.response?.data?.error || error.message, {
+      const message = getError(error);
+      setError(message);
+      addToast(message, {
         appearance: "error",
       });
     }
