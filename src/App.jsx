@@ -1,13 +1,47 @@
 import "./App.css";
+import { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import Landing from "./containers/Landing/Landing";
 import Auth from "./containers/Auth/Auth";
 import Navigation from "./components/Navigation/Navigation";
-import { useState } from "react";
 import { ToastProvider } from "react-toast-notifications";
+import Logout from "./components/Logout/Logout";
+import { setAuthToken } from "./utils/axios";
+import useAuthStore from "./store/auth";
+import axios from "./utils/axios";
+import { getError } from "./utils/error";
 
-function App() {
-  const [user, setUser] = useState(null);
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
+const App = () => {
+  const { setUser, setError } = useAuthStore(({ setUser, setError }) => ({
+    setUser,
+    setError,
+  }));
+
+  useEffect(() => {
+    let isCancelled = false;
+    const loadUser = async () => {
+      try {
+        const {
+          data: { user, token },
+        } = await axios.get("/users/me");
+        setUser(user, token);
+      } catch (error) {
+        const err = getError(error);
+        setError(err);
+        console.log(err);
+      }
+    };
+    if (!isCancelled) {
+      loadUser();
+    }
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [setError, setUser]);
 
   return (
     <ToastProvider
@@ -16,20 +50,15 @@ function App() {
       placement="top-center"
     >
       <div className="App">
-        <Navigation user={user} setUser={setUser} />
+        <Navigation />
         <Switch>
           <Route path="/" exact component={Landing} />
-          <Route
-            path="/auth"
-            exact
-            component={() => <Auth setUser={setUser} user={user} />}
-          ></Route>
+          <Route path="/auth" exact component={() => <Auth />} />
+          <Route path="/logout" exact component={() => <Logout />} />
         </Switch>
       </div>
     </ToastProvider>
   );
-}
+};
 
 export default App;
-
-//#943d24

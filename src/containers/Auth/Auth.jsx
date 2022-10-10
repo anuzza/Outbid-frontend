@@ -1,13 +1,25 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axios from "../../utils/axios";
 import "./Auth.css";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import Spinner from "../../components/Spinner/Spinner";
 import { Redirect } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
+import useAuthStore from "../../store/auth";
+import { getError } from "../../utils/error";
 
-const Auth = ({ setUser, user }) => {
+const Auth = () => {
+  const { setUser, authStart, setError, user, loading } = useAuthStore(
+    ({ setUser, authStart, setError, user, loading }) => ({
+      setUser,
+      authStart,
+      setError,
+      user,
+      loading,
+    })
+  );
+
   const { addToast } = useToasts();
   const [classesName, setClasses] = useState({
     classes: ["cont"],
@@ -21,8 +33,6 @@ const Auth = ({ setUser, user }) => {
   });
   const { name, email, password } = formData;
 
-  const [loading, setLoading] = useState(false);
-
   const handleFormChange = (e) => {
     setformData((prevState) => {
       return { ...prevState, [e.target.name]: e.target.value };
@@ -31,49 +41,46 @@ const Auth = ({ setUser, user }) => {
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    authStart();
     try {
       const {
         data: { user, token },
-      } = await axios.post("http://localhost:8080/users/login", {
+      } = await axios.post("/users/login", {
         email,
         password,
       });
-      setLoading(false);
-      setUser(user);
+      setUser(user, token);
       addToast(`Welcome back ${user?.name}!`, { appearance: "success" });
-
-      localStorage.setItem("token", token);
     } catch (error) {
-      setLoading(false);
-      addToast(error.response.data.error, { appearance: "error" });
+      const message = getError(error);
+      setError(message);
+      addToast(message, {
+        appearance: "error",
+      });
       //console.log(error.response.data);
     }
   };
 
   const handleSignupSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    authStart();
     try {
       const {
         data: { user, token },
-      } = await axios.post("http://localhost:8080/users/", {
+      } = await axios.post("/users/", {
         name,
         email,
         password,
       });
-      setLoading(false);
-      setUser(user);
+
+      setUser(user, token);
       addToast(`Welcome ${user?.name}!`, { appearance: "success" });
-
-      localStorage.setItem("token", token);
     } catch (error) {
-      setLoading(false);
-      addToast(error.response.data.error, { appearance: "error" });
-
-      // alert(error.response.data.error);
-
-      //console.log(error.response.data);
+      const message = getError(error);
+      setError(message);
+      addToast(message, {
+        appearance: "error",
+      });
     }
   };
 

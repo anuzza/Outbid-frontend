@@ -1,22 +1,18 @@
 import React from "react";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import AuthButton from "../AuthButton/AuthButton";
 import "./Navigation.css";
+import useAuthStore from "../../store/auth";
 
-const Navigation = ({ user, setUser }) => {
+const Navigation = () => {
+  const user = useAuthStore((state) => state.user);
   const history = useHistory();
   return (
     <header className="main-header">
       <h1 onClick={() => history.push("/")} className="logo">
         OutBid
       </h1>
-      <Link
-        onClick={() => {
-          if (!user) {
-            return <Redirect to="/auth" />;
-          }
-        }}
-      >
+      <Link to="/items/new">
         <AuthButton>Post Item</AuthButton>
       </Link>
 
@@ -25,15 +21,8 @@ const Navigation = ({ user, setUser }) => {
           <AuthButton>Sign In</AuthButton>
         </Link>
       ) : (
-        <Link to="/s">
-          <AuthButton
-            signout
-            onClick={() => {
-              setUser(null);
-            }}
-          >
-            Sign Out
-          </AuthButton>
+        <Link to="/logout">
+          <AuthButton signout>Sign Out</AuthButton>
         </Link>
       )}
     </header>
