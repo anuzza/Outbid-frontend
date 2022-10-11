@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import Landing from "./containers/Landing/Landing";
 import Auth from "./containers/Auth/Auth";
+import IteamPost from "./containers/IteamPost/IteamPost"
 import Navigation from "./components/Navigation/Navigation";
 import { ToastProvider } from "react-toast-notifications";
 import Logout from "./components/Logout/Logout";
@@ -53,6 +54,7 @@ const App = () => {
         <Navigation />
         <Switch>
           <Route path="/" exact component={Landing} />
+          <Route path="/Post" exact component={() => <IteamPost user={setUser} />} />
           <Route path="/auth" exact component={() => <Auth />} />
           <Route path="/logout" exact component={() => <Logout />} />
         </Switch>

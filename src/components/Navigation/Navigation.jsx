@@ -12,9 +12,16 @@ const Navigation = () => {
       <h1 onClick={() => history.push("/")} className="logo">
         OutBid
       </h1>
-      <Link to="/items/new">
-        <AuthButton>Post Item</AuthButton>
-      </Link>
+      
+
+      {user ? (
+        <Link to="/Post">
+          <AuthButton>List Iteam</AuthButton>
+        </Link>
+      ) : (
+        <Link to="/auth"></Link>
+      )}
+
 
       {!user ? (
         <Link to="/auth">
