@@ -44,6 +44,7 @@ const ItemPost = () => {
       </p>
       <div className={classes.join(" ")}>
         <div className="ItemPost">
+          <br/>
           <form onSubmit={(e) => e}>
             <CustomInput
               onChange={(e) => handleFormChange(e)}
