@@ -20,8 +20,9 @@ const ItemPost = () => {
     start_bid: " ",
     condition: " ",
     detials: " ",
+    catergory: " "
   });
-  const { product_name, start_bid, condition, details } = formData;
+  const { product_name, start_bid, condition, details, catergory } = formData;
 
   const [loading, setLoading] = useState(false);
 
@@ -52,6 +53,15 @@ const ItemPost = () => {
               required
             >
               Product Name
+            </CustomInput>
+            <CustomInput
+              onChange={(e) => handleFormChange(e)}
+              value={catergory}
+              type="catergory"
+              name="catergory"
+              required
+            >
+              Starting Bid
             </CustomInput>
             <CustomInput
               onChange={(e) => handleFormChange(e)}
