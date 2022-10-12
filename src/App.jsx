@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import Landing from "./containers/Landing/Landing";
 import Auth from "./containers/Auth/Auth";
-import IteamPost from "./containers/IteamPost/IteamPost"
+import ItemPost from "./containers/ItemPost/ItemPost";
 import Navigation from "./components/Navigation/Navigation";
 import { ToastProvider } from "react-toast-notifications";
 import Logout from "./components/Logout/Logout";
@@ -11,6 +11,7 @@ import { setAuthToken } from "./utils/axios";
 import useAuthStore from "./store/auth";
 import axios from "./utils/axios";
 import { getError } from "./utils/error";
+import PrivateRoute from "./components/Routing/UserRoute";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -54,9 +55,13 @@ const App = () => {
         <Navigation />
         <Switch>
           <Route path="/" exact component={Landing} />
-          <Route path="/Post" exact component={() => <IteamPost user={setUser} />} />
           <Route path="/auth" exact component={() => <Auth />} />
-          <Route path="/logout" exact component={() => <Logout />} />
+          <PrivateRoute
+            path="/items/new"
+            exact
+            component={() => <ItemPost />}
+          />
+          <PrivateRoute path="/logout" exact component={() => <Logout />} />
         </Switch>
       </div>
     </ToastProvider>

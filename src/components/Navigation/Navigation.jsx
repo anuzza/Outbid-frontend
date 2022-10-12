@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import AuthButton from "../AuthButton/AuthButton";
 import "./Navigation.css";
 import useAuthStore from "../../store/auth";
+import NavItems from "./NavItems/NavItems";
 
 const Navigation = () => {
   const user = useAuthStore((state) => state.user);
@@ -12,16 +13,8 @@ const Navigation = () => {
       <h1 onClick={() => history.push("/")} className="logo">
         OutBid
       </h1>
-      
 
-      {user ? (
-        <Link to="/Post">
-          <AuthButton>List Iteam</AuthButton>
-        </Link>
-      ) : (
-        <Link to="/auth"></Link>
-      )}
-
+      <NavItems user={user} />
 
       {!user ? (
         <Link to="/auth">
