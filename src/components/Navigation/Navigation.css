@@ -1,11 +1,12 @@
 .main-header {
-  height: 3vh;
+  height: 11vh;
   width: 100%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 30px 4%;
-  background-color: #5c4ebd;
+  padding: 30px 2%;
+  background-color: #5c4ebd; 
+  border: 3px inset darkgoldenrod;
 
   text-transform: uppercase;
   color: #fff;

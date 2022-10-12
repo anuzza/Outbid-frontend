@@ -7,11 +7,12 @@ import Spinner from "../../components/Spinner/Spinner";
 import { Redirect } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import useAuthStore from "../../store/auth";
+import CustomInputArea from "../../components/CustomInput/CustomInputArea";
 
 const ItemPost = () => {
   const user = useAuthStore((state) => state.user);
   const [classesName, setClasses] = useState({
-    classes: ["cont"],
+    classes: ["post"],
   });
   const { classes } = classesName;
 
@@ -32,18 +33,17 @@ const ItemPost = () => {
     });
   };
 
-  if (!user) {
+  if (user) {
     return <Redirect to="/auth" />;
   }
 
   return (
     <div>
       <p className="tip">
-        {classes.includes("s--signup") ? "Sign Up" : "Login"}
+      <h3>Create Your Listing Here! </h3>
       </p>
       <div className={classes.join(" ")}>
-        <div className="IteamPost">
-          <h2>Create Your Listing Here! </h2>
+        <div className="ItemPost">
           <form onSubmit={(e) => e}>
             <CustomInput
               onChange={(e) => handleFormChange(e)}
@@ -81,7 +81,7 @@ const ItemPost = () => {
             >
               Condition
             </CustomInput>
-            <CustomInput
+            <CustomInputArea
               onChange={(e) => handleFormChange(e)}
               value={details}
               type="details"
@@ -89,7 +89,7 @@ const ItemPost = () => {
               optional
             >
               Details
-            </CustomInput>
+            </CustomInputArea>
             <CustomButton type="submit">
               {loading ? (
                 <Spinner
