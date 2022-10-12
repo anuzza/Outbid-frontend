@@ -103,6 +103,7 @@ const ItemPost = () => {
                 "Post"
               )}
             </CustomButton>
+            <br/>
           </form>
         </div>
       </div>
