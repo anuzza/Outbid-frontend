@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axios from "../../utils/axios";
 import "./ItemPost.css";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import CustomInput from "../../components/CustomInput/CustomInput";
@@ -7,19 +7,34 @@ import Spinner from "../../components/Spinner/Spinner";
 import { Redirect } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import useAuthStore from "../../store/auth";
+import { getError } from "../../utils/error";
 
 const ItemPost = () => {
   const user = useAuthStore((state) => state.user);
   const [classesName, setClasses] = useState({
     classes: ["cont"],
   });
+
+  // copied from Auth.jsx for using authStart and setError
+  // removed user, as it is declared above
+  // removed loading, as it is declared below
+  const { setUser, authStart, setError} = useAuthStore(
+    ({ setUser, authStart, setError}) => ({
+      setUser,
+      authStart,
+      setError,
+    })
+  );
+
+
+  const { addToast } = useToasts();
   const { classes } = classesName;
 
   const [formData, setformData] = useState({
-    product_name: " ",
-    start_bid: " ",
-    condition: " ",
-    detials: " ",
+    product_name: "",
+    start_bid: "",
+    condition: "",
+    details: "",
   });
   const { product_name, start_bid, condition, details } = formData;
 
@@ -30,6 +45,39 @@ const ItemPost = () => {
       return { ...prevState, [e.target.name]: e.target.value };
     });
   };
+
+  // Done(?) Modify code copied from auth.jsx to make handleItemSubmit
+  const handleItemSubmit = async (e) => {
+    e.preventDefault();
+    authStart();
+    try {
+      const {
+        data: { user, item },
+      } = await axios.post("/itemPost/post", {
+        product_name,
+        details,
+        condition, 
+        start_bid,
+      });
+    } catch (error) {
+      const message = getError(error);
+      setError(message);
+      addToast(message, {
+        appearance: "error",
+      });
+    }
+  };
+  
+
+//   await axios.post("/users/login", {
+//     email,
+//     password,
+//   });
+//   setUser(user, token);
+//   addToast(`Welcome back ${user?.name}!`, { appearance: "success" });
+// } 
+
+
 
   if (!user) {
     return <Redirect to="/auth" />;
@@ -43,7 +91,7 @@ const ItemPost = () => {
       <div className={classes.join(" ")}>
         <div className="IteamPost">
           <h2>Create Your Listing Here! </h2>
-          <form onSubmit={(e) => e}>
+          <form onSubmit={(e) => handleItemSubmit(e)}>
             <CustomInput
               onChange={(e) => handleFormChange(e)}
               value={product_name}
@@ -76,7 +124,7 @@ const ItemPost = () => {
               value={details}
               type="details"
               name="details"
-              optional
+              required
             >
               Details
             </CustomInput>
