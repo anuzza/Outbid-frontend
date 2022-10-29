@@ -6,9 +6,6 @@ import useAuthStore from "../../store/auth";
 import BasicInfo from "./BasicInfo/Basic";
 import CheckBox from "./Checkbox/Checkbox";
 import UploadImage from "./Image/Image";
-import CustomInput from "../../components/CustomInput/CustomInput";
-import DatePicker from "react-datepicker";
-import moment from "react-moment";
 
 const ItemPost = () => {
   const user = useAuthStore((state) => state.user);
@@ -19,54 +16,18 @@ const ItemPost = () => {
     starting_amount: "",
   });
 
-  const [time, setTime] = useState(0);
-
-  const [allergy, setAllergy] = useState({
-    glutenFree: false,
-    vegan: false,
-    vegetarian: false,
-    dairyFree: false,
+  const [condition, setCondition] = useState({
+    Used: false,
+    New: false,
   });
 
-  const { glutenFree, vegan, vegetarian, dairyFree } = allergy;
+  const { Used, New } = condition;
+
+  const [active, setActive] = useState(false);
 
   const { name, description, starting_amount } = basicState;
 
-  const changeBasicState = (e) => {
-    if (
-      (e.target.name === "carbs" ||
-        e.target.name === "cost" ||
-        e.target.name === "protein" ||
-        e.target.name === "fat") &&
-      e.target.value !== ""
-    ) {
-      return;
-    }
-
-    if (e.target.name === "calories" && e.target.value !== "") {
-      return;
-    }
-    return setBasicState({
-      ...basicState,
-      [e.target.name]: e.target.value + "",
-    });
-  };
-
-  const changeAllergyState = (e) => {
-    return setAllergy({
-      ...allergy,
-      [e.target.name]: e.target.checked,
-    });
-  };
-
-  const changeTimeState = (e) => {
-    return setTime(e.target.checked ? e.target.value : 0);
-  };
-  const [ingredients, setIngredients] = useState([]);
-
-  const [loading, setLoading] = useState(false);
-
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState([""]);
   const [imageSrc, setImageSrc] = useState("");
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -90,14 +51,12 @@ const ItemPost = () => {
                   type="text"
                   name="name"
                   label="Item Name"
-                  changed={changeBasicState}
                   value={name}
                 />
                 <BasicInfo
                   type="text"
                   name="description"
                   label="Description/Category"
-                  changed={changeBasicState}
                   value={description}
                 />
                 <BasicInfo
@@ -106,18 +65,8 @@ const ItemPost = () => {
                   min="0.0"
                   name="starting_amount"
                   label="Starting Price"
-                  changed={changeBasicState}
                   value={starting_amount}
                 />
-                <BasicInfo
-                  type="date"
-                  step="any"
-                  name="starting_amount"
-                  label="Bid Deadline"
-                  changed={changeBasicState}
-                  value={starting_amount}
-                />
-                <DatePicker selected={new Date()} minDate={moment().toDate()} />
               </div>
             </section>
           </div>
@@ -127,39 +76,19 @@ const ItemPost = () => {
               <h3>What is the condition of the item?</h3>
 
               <div className="form-group-wrap-2col">
-                <CheckBox
-                  allergy={glutenFree}
-                  changed={changeAllergyState}
-                  label="USED"
-                  name="USED"
-                />
-                <CheckBox
-                  allergy={vegan}
-                  changed={changeAllergyState}
-                  label="NEW"
-                  name="NEW"
-                />
+                <CheckBox condition="Used" label="USED" name="Used" />
+                <CheckBox condition="New" label="NEW" name="New" />
               </div>
             </section>
           </div>
 
           <div>
             <section className="basic-info-block">
-              <h3>When will the bid end?</h3>
+              <h3>Active Bid?</h3>
 
               <div className="form-group-wrap-2col">
-                <CheckBox
-                  allergy={glutenFree}
-                  changed={changeAllergyState}
-                  label="USED"
-                  name="USED"
-                />
-                <CheckBox
-                  allergy={vegan}
-                  changed={changeAllergyState}
-                  label="NEW"
-                  name="NEW"
-                />
+                <CheckBox label="YES" name="YES" />
+                <CheckBox label="NO" name="NO" />
               </div>
             </section>
           </div>

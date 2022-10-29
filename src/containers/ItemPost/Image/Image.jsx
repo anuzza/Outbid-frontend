@@ -75,7 +75,7 @@ const Image = ({ image, id, setImageSrc, setImage }) => {
           <span onClick={() => removeImageHandler()} className="file_remove">
             X
           </span>
-          {image && <img src={uploadImage} alt="Recipe" />}
+          {image && <img src={uploadImage} alt="Item" />}
         </div>
       </div>
     </section>
