@@ -1,34 +1,75 @@
 import React, { useState } from "react";
-import axios from "axios";
 import "./ItemPost.css";
 import CustomButton from "../../components/CustomButton/CustomButton";
-import CustomInput from "../../components/CustomInput/CustomInput";
-import Spinner from "../../components/Spinner/Spinner";
 import { Redirect } from "react-router-dom";
-import { useToasts } from "react-toast-notifications";
 import useAuthStore from "../../store/auth";
+import BasicInfo from "./BasicInfo/Basic";
+import CheckBox from "./Checkbox/Checkbox";
+import UploadImage from "./Image/Image";
+import CustomInput from "../../components/CustomInput/CustomInput";
+import DatePicker from "react-datepicker";
+import moment from "react-moment";
 
 const ItemPost = () => {
   const user = useAuthStore((state) => state.user);
-  const [classesName, setClasses] = useState({
-    classes: ["cont"],
-  });
-  const { classes } = classesName;
 
-  const [formData, setformData] = useState({
-    product_name: " ",
-    start_bid: " ",
-    condition: " ",
-    detials: " ",
+  const [basicState, setBasicState] = useState({
+    name: "",
+    description: "",
+    starting_amount: "",
   });
-  const { product_name, start_bid, condition, details } = formData;
+
+  const [time, setTime] = useState(0);
+
+  const [allergy, setAllergy] = useState({
+    glutenFree: false,
+    vegan: false,
+    vegetarian: false,
+    dairyFree: false,
+  });
+
+  const { glutenFree, vegan, vegetarian, dairyFree } = allergy;
+
+  const { name, description, starting_amount } = basicState;
+
+  const changeBasicState = (e) => {
+    if (
+      (e.target.name === "carbs" ||
+        e.target.name === "cost" ||
+        e.target.name === "protein" ||
+        e.target.name === "fat") &&
+      e.target.value !== ""
+    ) {
+      return;
+    }
+
+    if (e.target.name === "calories" && e.target.value !== "") {
+      return;
+    }
+    return setBasicState({
+      ...basicState,
+      [e.target.name]: e.target.value + "",
+    });
+  };
+
+  const changeAllergyState = (e) => {
+    return setAllergy({
+      ...allergy,
+      [e.target.name]: e.target.checked,
+    });
+  };
+
+  const changeTimeState = (e) => {
+    return setTime(e.target.checked ? e.target.value : 0);
+  };
+  const [ingredients, setIngredients] = useState([]);
 
   const [loading, setLoading] = useState(false);
 
-  const handleFormChange = (e) => {
-    setformData((prevState) => {
-      return { ...prevState, [e.target.name]: e.target.value };
-    });
+  const [image, setImage] = useState("");
+  const [imageSrc, setImageSrc] = useState("");
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
   };
 
   if (!user) {
@@ -36,66 +77,105 @@ const ItemPost = () => {
   }
 
   return (
-    <div>
-      <p className="tip">
-        {classes.includes("s--signup") ? "Sign Up" : "Login"}
-      </p>
-      <div className={classes.join(" ")}>
-        <div className="IteamPost">
-          <h2>Create Your Listing Here! </h2>
-          <form onSubmit={(e) => e}>
-            <CustomInput
-              onChange={(e) => handleFormChange(e)}
-              value={product_name}
-              type="product_name"
-              name="product_name"
-              required
-            >
-              Product Name
-            </CustomInput>
-            <CustomInput
-              onChange={(e) => handleFormChange(e)}
-              value={start_bid}
-              type="start_bid"
-              name="start_bid"
-              required
-            >
-              Starting Bid
-            </CustomInput>
-            <CustomInput
-              onChange={(e) => handleFormChange(e)}
-              value={condition}
-              type="condition"
-              name="condition"
-              required
-            >
-              Condition
-            </CustomInput>
-            <CustomInput
-              onChange={(e) => handleFormChange(e)}
-              value={details}
-              type="details"
-              name="details"
-              optional
-            >
-              Details
-            </CustomInput>
-            <CustomButton type="submit">
-              {loading ? (
-                <Spinner
-                  margin="2px auto"
-                  width="2em"
-                  height="2em"
-                  background="#13100a"
+    <main role="main" className="main-container">
+      <div className="main-wrap">
+        <form onSubmit={(e) => handleFormSubmit(e)}>
+          <h1 className="main-header-title">Welcome to OutBid!</h1>
+          <div className="non-block"></div>
+          <div>
+            <section className="basic-info-block">
+              <h3>Tell us about the item</h3>
+              <div className="family-member">
+                <BasicInfo
+                  type="text"
+                  name="name"
+                  label="Item Name"
+                  changed={changeBasicState}
+                  value={name}
                 />
-              ) : (
-                "Post"
-              )}
-            </CustomButton>
-          </form>
-        </div>
+                <BasicInfo
+                  type="text"
+                  name="description"
+                  label="Description/Category"
+                  changed={changeBasicState}
+                  value={description}
+                />
+                <BasicInfo
+                  type="number"
+                  step="any"
+                  min="0.0"
+                  name="starting_amount"
+                  label="Starting Price"
+                  changed={changeBasicState}
+                  value={starting_amount}
+                />
+                <BasicInfo
+                  type="date"
+                  step="any"
+                  name="starting_amount"
+                  label="Bid Deadline"
+                  changed={changeBasicState}
+                  value={starting_amount}
+                />
+                <DatePicker selected={new Date()} minDate={moment().toDate()} />
+              </div>
+            </section>
+          </div>
+
+          <div>
+            <section className="basic-info-block">
+              <h3>What is the condition of the item?</h3>
+
+              <div className="form-group-wrap-2col">
+                <CheckBox
+                  allergy={glutenFree}
+                  changed={changeAllergyState}
+                  label="USED"
+                  name="USED"
+                />
+                <CheckBox
+                  allergy={vegan}
+                  changed={changeAllergyState}
+                  label="NEW"
+                  name="NEW"
+                />
+              </div>
+            </section>
+          </div>
+
+          <div>
+            <section className="basic-info-block">
+              <h3>When will the bid end?</h3>
+
+              <div className="form-group-wrap-2col">
+                <CheckBox
+                  allergy={glutenFree}
+                  changed={changeAllergyState}
+                  label="USED"
+                  name="USED"
+                />
+                <CheckBox
+                  allergy={vegan}
+                  changed={changeAllergyState}
+                  label="NEW"
+                  name="NEW"
+                />
+              </div>
+            </section>
+          </div>
+
+          <div></div>
+          <UploadImage
+            setImageSrc={setImageSrc}
+            image={imageSrc}
+            setImage={setImage}
+          />
+          <CustomButton edit type="submit">
+            Submit
+          </CustomButton>
+        </form>
       </div>
-    </div>
+    </main>
   );
 };
 

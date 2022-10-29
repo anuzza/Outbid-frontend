@@ -1,0 +1,47 @@
+.basic-info-input {
+  background: none;
+  line-height: 1.9;
+  transition: all 0.28s ease;
+  box-shadow: none;
+  display: block;
+  width: 100%;
+  border-width: 0;
+  resize: none;
+  border-color: transparent;
+  padding: 0.11875rem 0.11875rem 0.059375rem;
+  font-size: 16px !important;
+  height: 1.805rem;
+}
+
+.basic-textarea {
+  height: 6.805rem !important;
+  margin: 2px;
+}
+
+.control-label {
+  margin-bottom: 2px;
+  position: absolute;
+  top: 0.1875rem;
+  color: #2d545e;
+  pointer-events: none;
+  padding-left: 0.11875rem;
+  z-index: 1;
+  font-size: 0.95rem;
+  font-weight: normal;
+  transition: all 0.28s ease;
+}
+
+.control-label span {
+  vertical-align: baseline;
+}
+
+.bar {
+  position: relative;
+  border-bottom: 1px solid #888;
+  display: block;
+  transition: all 0.28s ease;
+}
+
+.bar-change {
+  border-bottom: 2px solid #2d545e;
+}
