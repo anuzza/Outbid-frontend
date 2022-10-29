@@ -4,7 +4,6 @@ import CustomButton from "../../components/CustomButton/CustomButton";
 import { Redirect } from "react-router-dom";
 import useAuthStore from "../../store/auth";
 import BasicInfo from "./BasicInfo/Basic";
-import CheckBox from "./Checkbox/Checkbox";
 import UploadImage from "./Image/Image";
 
 const ItemPost = () => {
@@ -28,7 +27,20 @@ const ItemPost = () => {
   const { name, description, starting_amount } = basicState;
 
   const [image, setImage] = useState([""]);
+
   const [imageSrc, setImageSrc] = useState("");
+
+  const changeCondition = (e) => {
+    setCondition((prev) => ({ ...prev, [e.target.name]: e.target.checked }));
+  };
+
+  const changeBasicState = (e) => {
+    setBasicState((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
   };
@@ -52,12 +64,14 @@ const ItemPost = () => {
                   name="name"
                   label="Item Name"
                   value={name}
+                  changed={changeBasicState}
                 />
                 <BasicInfo
                   type="text"
                   name="description"
                   label="Description/Category"
                   value={description}
+                  changed={changeBasicState}
                 />
                 <BasicInfo
                   type="number"
@@ -66,29 +80,8 @@ const ItemPost = () => {
                   name="starting_amount"
                   label="Starting Price"
                   value={starting_amount}
+                  changed={changeBasicState}
                 />
-              </div>
-            </section>
-          </div>
-
-          <div>
-            <section className="basic-info-block">
-              <h3>What is the condition of the item?</h3>
-
-              <div className="form-group-wrap-2col">
-                <CheckBox condition="Used" label="USED" name="Used" />
-                <CheckBox condition="New" label="NEW" name="New" />
-              </div>
-            </section>
-          </div>
-
-          <div>
-            <section className="basic-info-block">
-              <h3>Active Bid?</h3>
-
-              <div className="form-group-wrap-2col">
-                <CheckBox label="YES" name="YES" />
-                <CheckBox label="NO" name="NO" />
               </div>
             </section>
           </div>

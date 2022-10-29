@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Image.css";
+import { setAuthToken } from "../../../utils/axios";
 
 const Image = ({ image, id, setImageSrc, setImage }) => {
   const [error, setError] = useState("");
@@ -53,7 +54,7 @@ const Image = ({ image, id, setImageSrc, setImage }) => {
   };
   return (
     <section className="recipe-image-upload">
-      <h2 className="recipe-image-upload-title">Upload the recipe image</h2>
+      <h2 className="recipe-image-upload-title">Upload the Item's image</h2>
       <div className="container">
         <div className="panel">
           <div className={outerButton.join(" ")}>
