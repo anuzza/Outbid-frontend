@@ -1,140 +1,91 @@
-.recipe-image-upload {
-  max-width: 54rem;
-  position: relative;
-  text-align: center;
-  padding: 1.5em 0.75em;
-  border: 1px solid #e8e8e8;
-  border-radius: 6px;
-  background: #fff;
+section {
+  padding: 2rem 0;
 }
 
-.container {
-  max-width: 1100px;
-  padding: 0 20px;
+label {
   margin: 0 auto;
-}
-.panel {
-  margin: 40px auto;
-  max-width: 500px;
-  text-align: center;
-}
-.button_outer {
-  background: #4285f4;
-  border-radius: 30px;
-  text-align: center;
-  height: 50px;
-  width: 200px;
-  display: inline-block;
-  transition: 0.2s;
-  position: relative;
-  overflow: hidden;
-}
-.btn_upload {
-  padding: 17px 30px 12px;
-  color: #fff;
-  text-align: center;
-  position: relative;
-  display: inline-block;
-  overflow: hidden;
-  z-index: 3;
-  white-space: nowrap;
-}
-.btn_upload input {
-  position: absolute;
-  width: 100%;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 105%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px dotted black;
+  border-radius: 20px;
+  width: 10rem;
+  height: 10rem;
   cursor: pointer;
-  opacity: 0;
+  font-size: large;
 }
-.file_uploading {
-  width: 100%;
-  height: 10px;
-  margin-top: 20px;
-  background: #ccc;
+
+label span {
+  font-weight: lighter;
+  font-size: small;
+  padding-top: 0.5rem;
 }
-.file_uploading .btn_upload {
+
+input {
   display: none;
 }
 
-.processing_bar {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 0;
-  height: 100%;
-  border-radius: 30px;
-  background: #4285f4;
-  transition: 3s;
+img {
+  padding: 0;
+  margin: 0;
 }
-.file_uploading .processing_bar {
-  width: 100%;
+
+.images {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
-.success_box {
-  display: none;
-  width: 50px;
-  height: 50px;
+
+.image {
+  margin: 1rem 0.5rem;
   position: relative;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
 }
-.success_box:before {
-  content: "";
-  display: block;
-  width: 12px;
-  height: 22px;
-  border-bottom: 6px solid #fff;
-  border-right: 6px solid #fff;
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
+
+.image button {
   position: absolute;
-  left: 20px;
-  top: 10px;
-}
-.file_uploaded .success_box {
-  display: inline-block;
-}
-.file_uploaded {
-  margin-top: 0;
-  width: 50px;
-  background: #4285f4;
-  height: 50px;
-}
-.uploaded_file_view {
-  max-width: 300px;
-  margin: 40px auto;
-  text-align: center;
-  position: relative;
-  transition: 0.2s;
-  opacity: 0;
-}
-.file_remove {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: block;
-  position: absolute;
-  background: #aaa;
-  line-height: 30px;
-  color: #fff;
-  font-size: 12px;
+  bottom: 0;
+  right: 0;
   cursor: pointer;
-  right: -15px;
-  top: -15px;
+  border: none;
+  color: white;
+  background-color: lightcoral;
 }
-.file_remove:hover {
-  background: #222;
-  transition: 0.2s;
+
+.image button:hover {
+  background-color: red;
 }
-.uploaded_file_view img {
-  max-width: 100%;
+
+.image p {
+  padding: 0 0.5rem;
+  margin: 0;
 }
-.uploaded_file_view.show {
-  opacity: 1;
+
+.upload-btn {
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+  border: none;
+  border-radius: 20px;
+  width: 10rem;
+  height: 3rem;
+  color: white;
+  background-color: green;
 }
-.error_msg {
+
+label:hover,
+.upload-btn:hover {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
+.error {
   text-align: center;
-  color: #f00;
+}
+
+.error span {
+  color: red;
 }

@@ -13,15 +13,12 @@
 }
 
 .main-header-title {
-  float: left;
+  text-align: center;
   font-size: 3.1rem;
-  padding-left: 0.9rem;
-  padding-right: 0.9rem;
   position: relative;
-  text-align: left;
   letter-spacing: 0.05em;
   margin: 1.8rem 0 1.8rem;
-  font-weight: 100;
+  font-weight: bold;
 }
 
 .logo-image {
@@ -51,7 +48,6 @@
 
 .basic-info-block h3 {
   font-size: 1.2rem;
-  letter-spacing: 0.2em;
   position: relative;
   width: 100%;
   margin-bottom: 2.7rem;

@@ -1,85 +1,35 @@
-import React, { useState, useEffect } from "react";
-import "./Image.css";
-import { setAuthToken } from "../../../utils/axios";
+import { useState } from "react";
+import { RMIUploader } from "react-multiple-image-uploader";
 
-const Image = ({ image, id, setImageSrc, setImage }) => {
-  const [error, setError] = useState("");
-  const [outerButton, setOuterButton] = useState(["button_outer"]);
-  const [imageDiv, setImageDiv] = useState(["uploaded_file_view"]);
-
-  useEffect(() => {
-    if (image === "") {
-      setImageDiv(["uploaded_file_view"]);
-      setOuterButton(["button_outer"]);
-    }
-    if (image && id) {
-      setOuterButton(["button_outer", "file_uploading", "file_uploaded"]);
-      setImageDiv(["uploaded_file_view", "show"]);
-    }
-  }, [image, id]);
-
-  let uploadImage;
-  if (image.includes("blob") || image.includes("spoonacular")) {
-    uploadImage = image;
-  } else {
-    uploadImage = image;
-  }
-
-  const imageChangeHandler = (e) => {
-    const check = ["gif", "png", "jpg", "jpeg"];
-    const val = e.target.files[0].name.split(".").pop().toLowerCase();
-    if (!check.includes(val)) {
-      setError("Not an Image ...");
-    } else {
-      setError("");
-
-      setOuterButton([...outerButton, "file_uploading"]);
-      setTimeout(function () {
-        setOuterButton([...outerButton, "file_uploading", "file_uploaded"]);
-      }, 3000);
-
-      setTimeout(function () {
-        setImageDiv([...imageDiv, "show"]);
-      }, 3500);
-      setImage(e.target.files[0]);
-      setImageSrc(URL.createObjectURL(e.target.files[0]));
-    }
+const Image = () => {
+  const [visible, setVisible] = useState(false);
+  const handleSetVisible = () => {
+    setVisible((prev) => !prev);
+  };
+  const hideModal = () => {
+    setVisible(true);
+  };
+  const onUpload = (data) => {
+    console.log("Upload files", data);
+  };
+  const onSelect = (data) => {
+    console.log("Select files", data);
+  };
+  const onRemove = (id) => {
+    console.log("Remove image id", id);
   };
 
-  const removeImageHandler = () => {
-    setImage("");
-    setImageSrc("");
-    setImageDiv(["uploaded_file_view"]);
-    setOuterButton(["button_outer"]);
-  };
   return (
-    <section className="recipe-image-upload">
-      <h2 className="recipe-image-upload-title">Upload the Item's image</h2>
-      <div className="container">
-        <div className="panel">
-          <div className={outerButton.join(" ")}>
-            <div className="btn_upload">
-              <input
-                onChange={(e) => imageChangeHandler(e)}
-                type="file"
-                id="upload_file"
-                name=""
-              />
-              Upload Image
-            </div>
-            <div className="processing_bar"></div>
-            <div className="success_box"></div>
-          </div>
-        </div>
-        <div className="error_msg">{error !== "" && error}</div>
-        <div className={imageDiv.join(" ")}>
-          <span onClick={() => removeImageHandler()} className="file_remove">
-            X
-          </span>
-          {image && <img src={uploadImage} alt="Item" />}
-        </div>
-      </div>
-    </section>
+    <div className="App">
+      <h1>Upload the item's image</h1>
+      <RMIUploader
+        isOpen={visible}
+        hideModal={hideModal}
+        onSelect={onSelect}
+        onUpload={onUpload}
+        onRemove={onRemove}
+      />
+    </div>
   );
 };
 

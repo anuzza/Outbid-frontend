@@ -26,9 +26,9 @@ const ItemPost = () => {
 
   const { name, description, starting_amount } = basicState;
 
-  const [image, setImage] = useState([""]);
+  const [image, setImage] = useState([]);
 
-  const [imageSrc, setImageSrc] = useState("");
+  const [imageSrc, setImageSrc] = useState([]);
 
   const changeCondition = (e) => {
     setCondition((prev) => ({ ...prev, [e.target.name]: e.target.checked }));
@@ -86,8 +86,8 @@ const ItemPost = () => {
                 <div className="dropdown">
                   <label for="condition">Item Condition</label>
                   <select name="condition" id="condition">
-                    <option value="USED">USED</option>
                     <option value="NEW">NEW</option>
+                    <option value="USED">USED</option>
                   </select>
                 </div>
               </div>
@@ -100,7 +100,7 @@ const ItemPost = () => {
             setImage={setImage}
           />
           <CustomButton edit type="submit">
-            Submit
+            List Item
           </CustomButton>
         </form>
       </div>

@@ -13,12 +13,13 @@
   height: 1.805rem;
 }
 
-input {
-  margin-top: 10px;
-}
-
 .basic-textarea {
   height: 6.805rem !important;
+}
+
+input {
+  margin-top: 10px;
+  outline: none;
 }
 
 .control-label {
@@ -39,8 +40,8 @@ input {
 
 .bar {
   position: relative;
-  display: block;
   border-bottom: 1px solid #888;
+  display: block;
   transition: all 0.28s ease;
 }
 
