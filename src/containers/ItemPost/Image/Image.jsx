@@ -22,13 +22,6 @@ const Image = () => {
   return (
     <div className="App">
       <h1>Upload the item's image</h1>
-      <RMIUploader
-        isOpen={visible}
-        hideModal={hideModal}
-        onSelect={onSelect}
-        onUpload={onUpload}
-        onRemove={onRemove}
-      />
     </div>
   );
 };

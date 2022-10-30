@@ -5,6 +5,7 @@ import { Redirect } from "react-router-dom";
 import useAuthStore from "../../store/auth";
 import BasicInfo from "./BasicInfo/Basic";
 import UploadImage from "./Image/Image";
+import Upload from "./Image/Upload";
 
 const ItemPost = () => {
   const user = useAuthStore((state) => state.user);
@@ -92,13 +93,9 @@ const ItemPost = () => {
                 </div>
               </div>
             </section>
-          </div> 
+          </div>
 
-          <UploadImage
-            setImageSrc={setImageSrc}
-            image={imageSrc}
-            setImage={setImage}
-          />
+          <Upload />
           <CustomButton edit type="submit">
             List Item
           </CustomButton>

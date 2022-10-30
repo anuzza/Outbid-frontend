@@ -1,0 +1,18 @@
+.container {
+  background-color: #fff;
+  border-radius: 2px;
+  padding: 10px;
+}
+
+.upload-container {
+  margin: 0;
+  margin-top: 10px;
+  background-color: #fff;
+  height: 100px;
+  width: 100%;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
