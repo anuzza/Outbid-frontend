@@ -92,7 +92,7 @@ const ItemPost = () => {
                 </div>
               </div>
             </section>
-          </div>
+          </div> 
 
           <UploadImage
             setImageSrc={setImageSrc}
