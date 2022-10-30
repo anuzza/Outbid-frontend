@@ -69,7 +69,7 @@ const Basic = ({ textarea, changed, label, id, ...rest }) => {
         />
       )}
       <label className="control-label" htmlFor={label}>
-        <span>{label}</span>
+        <span className="label">{label}</span>
       </label>
       <i className={barClasses.join(" ")}></i>
     </div>

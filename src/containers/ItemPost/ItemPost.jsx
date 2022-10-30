@@ -82,11 +82,18 @@ const ItemPost = () => {
                   value={starting_amount}
                   changed={changeBasicState}
                 />
+
+                <div className="dropdown">
+                  <label for="condition">Item Condition</label>
+                  <select name="condition" id="condition">
+                    <option value="USED">USED</option>
+                    <option value="NEW">NEW</option>
+                  </select>
+                </div>
               </div>
             </section>
           </div>
 
-          <div></div>
           <UploadImage
             setImageSrc={setImageSrc}
             image={imageSrc}

@@ -72,3 +72,21 @@
   position: relative;
   text-align: center;
 }
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+}
+.dropdown label {
+  color: #2d545e;
+}
+
+select {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  outline: 0;
+  text-decoration-color: #888;
+  border: 1px solid rgb(189, 179, 181);
+  padding: 4px;
+  border-radius: 9px;
+}

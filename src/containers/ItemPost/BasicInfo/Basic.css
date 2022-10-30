@@ -13,19 +13,21 @@
   height: 1.805rem;
 }
 
+input {
+  margin-top: 10px;
+}
+
 .basic-textarea {
   height: 6.805rem !important;
-  margin: 2px;
 }
 
 .control-label {
-  margin-bottom: 2px;
   position: absolute;
   top: 0.1875rem;
   color: #2d545e;
   pointer-events: none;
   padding-left: 0.11875rem;
-  z-index: 1;
+  z-index: 2;
   font-size: 0.95rem;
   font-weight: normal;
   transition: all 0.28s ease;
@@ -37,8 +39,8 @@
 
 .bar {
   position: relative;
-  border-bottom: 1px solid #888;
   display: block;
+  border-bottom: 1px solid #888;
   transition: all 0.28s ease;
 }
 
