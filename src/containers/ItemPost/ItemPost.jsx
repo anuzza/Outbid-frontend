@@ -84,7 +84,7 @@ const ItemPost = () => {
                 />
 
                 <div className="dropdown">
-                  <label for="condition">Item Condition</label>
+                  <label htmlFor="condition">Item Condition</label>
                   <select name="condition" id="condition">
                     <option value="NEW">NEW</option>
                     <option value="USED">USED</option>
