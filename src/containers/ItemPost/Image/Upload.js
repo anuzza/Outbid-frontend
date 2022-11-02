@@ -17,9 +17,7 @@ const ImageUploader = () => {
   const onChange = (imageList, addUpdateIndex) => {
     setImages(imageList);
   };
-  const onError = () => {
-    setImages([]);
-  };
+  const onError = () => {};
   const printjson = () => {
     console.log(images);
   };
@@ -53,13 +51,13 @@ const ImageUploader = () => {
               <span className="errors">
                 <ul>
                   {errors.maxNumber && (
-                    <li>Number of selected images exceed maxNumber</li>
+                    <li>Number of selected images exceed maxNumber!</li>
                   )}
                   {errors.acceptType && (
-                    <li>Your selected file type is not allowed</li>
+                    <li>Your selected file type is not allowed!</li>
                   )}
                   {errors.maxFileSize && (
-                    <li>Selected file size exceed maxFileSize</li>
+                    <li>Selected file size exceed maxFileSize!</li>
                   )}
                 </ul>
               </span>
