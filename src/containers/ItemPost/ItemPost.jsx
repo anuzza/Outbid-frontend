@@ -4,7 +4,6 @@ import CustomButton from "../../components/CustomButton/CustomButton";
 import { Redirect } from "react-router-dom";
 import useAuthStore from "../../store/auth";
 import BasicInfo from "./BasicInfo/Basic";
-import UploadImage from "./Image/Image";
 import Upload from "./Image/Upload";
 
 const ItemPost = () => {

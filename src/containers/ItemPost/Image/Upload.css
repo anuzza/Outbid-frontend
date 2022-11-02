@@ -1,18 +1,75 @@
 .container {
   background-color: #fff;
-  border-radius: 2px;
-  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 2px rgb(84, 84, 84);
+  padding: 1.8rem;
 }
 
 .upload-container {
   margin: 0;
-  margin-top: 10px;
+  margin: 15px 0;
+  border: dotted rgb(181, 180, 180);
+  border-radius: 5px;
   background-color: #fff;
-  height: 100px;
+  height: 80px;
   width: 100%;
   font-size: 18px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+}
+
+.image-item__btn-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.success {
+  background-color: rgb(4, 202, 4);
+  color: white;
+  cursor: pointer;
+  margin: 2px !important;
+  padding: 5px;
+  width: 70px;
+  border-radius: 5px;
+}
+
+.success:hover {
+  background-color: rgb(2, 134, 2);
+  color: white;
+}
+
+.errors {
+  color: red;
+}
+
+.remove {
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+h3 {
+  text-align: center;
+}
+
+.remove:hover {
+  background-color: rgb(170, 0, 0);
+}
+
+.delete {
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  padding: 5px;
+  width: 70px;
+  border-radius: 5px;
+}
+
+.delete:hover {
+  background-color: rgb(170, 0, 0);
 }

@@ -39,8 +39,9 @@
 
 .basic-info-block {
   background-color: #fff;
-  border: 1px solid #efe6de;
+  border: 1px solid #fff;
   border-radius: 5px;
+  box-shadow: 2px rgb(84, 84, 84);
   margin-bottom: 4.5rem;
   position: relative;
   padding: 1.8rem;
