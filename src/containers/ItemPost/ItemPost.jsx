@@ -2,52 +2,59 @@ import React, { useState } from "react";
 import "./ItemPost.css";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import { Redirect } from "react-router-dom";
-import useAuthStore from "../../store/auth";
 import BasicInfo from "./BasicInfo/Basic";
 import Upload from "./Image/Upload";
+import { useToasts } from "react-toast-notifications";
+import Spinner from "../../components/Spinner/Spinner";
 
 const ItemPost = () => {
-  const user = useAuthStore((state) => state.user);
+  const { addToast } = useToasts();
 
   const [basicState, setBasicState] = useState({
     name: "",
     description: "",
     starting_amount: "",
   });
+  const [loading, setLoading] = useState(false);
 
-  const [condition, setCondition] = useState({
-    Used: false,
-    New: false,
-  });
+  const [condition, setCondition] = useState("New");
 
-  const { Used, New } = condition;
-
-  const [active, setActive] = useState(false);
+  const [images, setImages] = useState([]);
+  const [imageSrc, setImageSrc] = useState([]);
 
   const { name, description, starting_amount } = basicState;
 
-  const [image, setImage] = useState([]);
-
-  const [imageSrc, setImageSrc] = useState([]);
-
   const changeCondition = (e) => {
-    setCondition((prev) => ({ ...prev, [e.target.name]: e.target.checked }));
+    setCondition((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const changeBasicState = (e) => {
-    setBasicState((prev) => ({
+    return setBasicState((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
   };
 
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
+  if (loading) {
+    return <Spinner />;
+  }
+
+  const checkErrors = () => {
+    return name !== "" && description !== "" && starting_amount !== 0;
   };
 
-  if (!user) {
-    return <Redirect to="/auth" />;
-  }
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    if (!checkErrors()) {
+      addToast("Please fill out all the required fields", {
+        appearance: "error",
+      });
+    } else if (images.length === 0) {
+      addToast("You must upload at least one picture of the item", {
+        appearance: "error",
+      });
+    }
+  };
 
   return (
     <main role="main" className="main-container">
@@ -85,7 +92,12 @@ const ItemPost = () => {
 
                 <div className="dropdown">
                   <label htmlFor="condition">Item Condition</label>
-                  <select name="condition" id="condition">
+                  <select
+                    value={condition}
+                    name="condition"
+                    id="condition"
+                    onChange={changeCondition}
+                  >
                     <option value="NEW">NEW</option>
                     <option value="USED">USED</option>
                   </select>
@@ -94,7 +106,12 @@ const ItemPost = () => {
             </section>
           </div>
 
-          <Upload />
+          <Upload
+            images={images}
+            setImages={setImages}
+            imageSrc={imageSrc}
+            setImageSrc={setImageSrc}
+          />
           <CustomButton edit type="submit">
             List Item
           </CustomButton>
