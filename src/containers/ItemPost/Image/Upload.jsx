@@ -1,25 +1,22 @@
 import React from "react";
 import ImageUploading from "react-images-uploading";
 import { FaTrashAlt } from "react-icons/fa";
-import { useToasts } from "react-toast-notifications";
+
 import "./Upload.css";
 
-const Upload = ({ images, setImages, setImageSrc, imageSrc }) => {
+const Upload = () => {
   const maxNumber = 3;
   const acceptType = ["jpeg", "jpg", "png"];
   const maxFileSize = 5000000;
 
-  const { addToast } = useToasts();
+  const [images, setImages] = React.useState([]);
 
   const onChange = (imageList, addUpdateIndex) => {
     setImages(imageList);
-    setImageSrc(imageList.map((image) => image.data_url));
   };
   const onError = () => {};
   const printjson = () => {
-    // console.log(images);
-    // console.log(imageSrc);
-    addToast("Successfully uploaded the picture!", { appearance: "success" });
+    console.log(images);
   };
 
   return (
