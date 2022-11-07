@@ -6,6 +6,8 @@ import BasicInfo from "./BasicInfo/Basic";
 import Upload from "./Image/Upload";
 import { useToasts } from "react-toast-notifications";
 import Spinner from "../../components/Spinner/Spinner";
+import axios from "../../utils/axios";
+import { getError } from "../../utils/error";
 
 const ItemPost = () => {
   const { addToast } = useToasts();
@@ -15,9 +17,10 @@ const ItemPost = () => {
     description: "",
     starting_amount: "",
   });
+
   const [loading, setLoading] = useState(false);
 
-  const [condition, setCondition] = useState("New");
+  const [condition, setCondition] = useState("NEW");
 
   const [images, setImages] = useState([]);
   const [imageSrc, setImageSrc] = useState([]);
@@ -40,17 +43,36 @@ const ItemPost = () => {
   }
 
   const checkErrors = () => {
-    return name !== "" && description !== "" && starting_amount !== 0;
+    return name === "" && description === "" && starting_amount === 0;
   };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    if (!checkErrors()) {
+    if (checkErrors()) {
       addToast("Please fill out all the required fields", {
         appearance: "error",
       });
+      return;
     } else if (images.length === 0) {
       addToast("You must upload at least one picture of the item", {
+        appearance: "error",
+      });
+      return;
+    }
+
+    try {
+      const { data } = await axios.post("/items/", {
+        name,
+        description,
+        starting_amount,
+        condition,
+      });
+      console.log(data);
+      addToast("Sucessfully listed the item", { appearance: "success" });
+    } catch (error) {
+      console.log(error.response);
+      let message = getError(error);
+      addToast(message, {
         appearance: "error",
       });
     }

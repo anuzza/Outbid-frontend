@@ -57,7 +57,6 @@ const Auth = () => {
       addToast(message, {
         appearance: "error",
       });
-      //console.log(error.response.data);
     }
   };
 
