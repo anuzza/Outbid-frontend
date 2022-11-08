@@ -21,7 +21,7 @@ html {
 }
 body {
   box-sizing: border-box;
-  background: #e8e7f6;
+  background: #e8e7f6 !important;
   display: flex;
   flex-direction: column;
   height: 100vh;
