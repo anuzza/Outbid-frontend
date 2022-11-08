@@ -21,10 +21,6 @@ html {
 }
 body {
   box-sizing: border-box;
-<<<<<<< HEAD
-=======
-  background: #e8e7f6 !important;
->>>>>>> main
   display: flex;
   flex-direction: column;
   height: 100vh;
