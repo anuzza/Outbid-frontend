@@ -5,14 +5,25 @@
   padding: 0px 20px;
 }
 
+.nav_link:hover {
+  transform: scale(1.2);
+}
+.nav_link:focus {
+  transform: scale(1.2);
+}
+
+.activeNav {
+
+  
+}
 .nav_link a {
   transition: all 0.3s ease 0s;
   text-decoration: none;
   color: #fff;
 }
 
-.nav_link a:hover,
-.nav_link a:focused {
+.nav_link:hover,
+.nav_link:focus {
   color: #c89666;
   transition: 0.7s;
 }

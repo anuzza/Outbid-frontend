@@ -1,15 +1,89 @@
-.tip {
-  font-size: 30px;
-  font-weight: bolder;
+.main-container {
+  overflow-y: scroll;
+  position: relative;
 
-  margin: 40px auto 50px;
-  text-align: center;
-  color: darkgoldenrod;
+  top: 3rem;
 }
-.post {
-    position: relative;
-    width: 900px;
-    height: auto;
-    margin: 0 auto 100px;
-    background: #fff;
-  }
+
+.main-wrap {
+  max-width: 54rem;
+  margin-bottom: 7rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.main-header-title {
+  text-align: center;
+  font-size: 3.1rem;
+  position: relative;
+  letter-spacing: 0.05em;
+  margin: 1.8rem 0 1.8rem;
+  font-weight: bold;
+}
+
+.logo-image {
+  bottom: 5%;
+  left: 100%;
+  height: 75%;
+  margin-left: 0;
+  position: absolute;
+  width: auto;
+}
+
+.non-block {
+  clear: left;
+  padding-bottom: 3.6rem;
+  padding-left: 0.9rem;
+  padding-right: 0.9rem;
+}
+
+.basic-info-block {
+  background-color: #fff;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  box-shadow: 2px rgb(84, 84, 84);
+  margin-bottom: 4.5rem;
+  position: relative;
+  padding: 1.8rem;
+}
+
+.basic-info-block h3 {
+  font-size: 1.2rem;
+  position: relative;
+  width: 100%;
+  margin-bottom: 2.7rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.edit-form-group {
+  position: relative;
+  padding-top: 0.95rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.76rem;
+}
+.basic-info-block .basic-instructions {
+  color: #888;
+  margin-top: -1.8rem;
+  margin-bottom: 2.7rem;
+  position: relative;
+  text-align: center;
+}
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+}
+.dropdown label {
+  color: #2d545e;
+}
+
+select {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  outline: 0;
+  text-decoration-color: #888;
+  border: 1px solid rgb(189, 179, 181);
+  padding: 4px;
+  border-radius: 9px;
+}
