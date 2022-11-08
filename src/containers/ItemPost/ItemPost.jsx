@@ -62,7 +62,7 @@ const ItemPost = () => {
               name="catergory"
               required
             >
-              Starting Bid
+             Catergory
             </CustomInput>
             <CustomInput
               onChange={(e) => handleFormChange(e)}
