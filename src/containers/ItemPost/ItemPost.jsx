@@ -11,7 +11,6 @@ import axios from "../../utils/axios";
 import { getError } from "../../utils/error";
 
 const ItemPost = () => {
-  
   const { addToast } = useToasts();
 
   const [basicState, setBasicState] = useState({
