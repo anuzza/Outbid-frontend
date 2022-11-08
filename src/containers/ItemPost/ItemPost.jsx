@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./ItemPost.css";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import { Redirect } from "react-router-dom";
+
 import BasicInfo from "./BasicInfo/Basic";
 import Upload from "./Image/Upload";
 import { useToasts } from "react-toast-notifications";
@@ -10,6 +11,7 @@ import axios from "../../utils/axios";
 import { getError } from "../../utils/error";
 
 const ItemPost = () => {
+  
   const { addToast } = useToasts();
 
   const [basicState, setBasicState] = useState({
