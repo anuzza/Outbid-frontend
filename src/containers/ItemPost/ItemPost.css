@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .main-container {
   overflow-y: scroll;
   position: relative;
@@ -87,3 +88,20 @@ select {
   padding: 4px;
   border-radius: 9px;
 }
+=======
+.tip {
+  font-size: 30px;
+  font-weight: bolder;
+
+  margin: 40px auto 50px;
+  text-align: center;
+  color: darkgoldenrod;
+}
+.post {
+    position: relative;
+    width: 900px;
+    height: auto;
+    margin: 0 auto 100px;
+    background: #fff;
+  }
+>>>>>>> Joe1

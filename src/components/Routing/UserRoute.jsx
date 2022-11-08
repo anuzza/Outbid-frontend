@@ -12,7 +12,7 @@ const UserRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) => {
-        if (!user) {
+        if (user) {
           return <Redirect to="/auth" />;
         }
         return <Component {...props} />;
