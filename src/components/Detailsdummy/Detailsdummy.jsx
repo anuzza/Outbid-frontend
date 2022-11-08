@@ -30,9 +30,9 @@ const Dummy = () => {
                     {item.rating}
                 </div>
                 <div className="details-price">Starting Bid: ${item.price}</div>
-                {/* <div className="details-bid"> */}
+                <div className="details-bid">
                 <CustomButton>Bid</CustomButton>
-                {/* </div> */}
+                </div>
                 <div className="details-report">
                 <CustomButton>Report</CustomButton>
                 </div>
