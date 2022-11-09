@@ -61,11 +61,11 @@ const App = () => {
             exact
             component={() => <ItemPost />}
           />
-          <PrivateRoute
+          {/* <PrivateRoute
             path="/items/:id"
             exact
             component={() => <ItemPost />}
-          />
+          /> */}
           <PrivateRoute path="/logout" exact component={() => <Logout />} />
         </Switch>
       </div>

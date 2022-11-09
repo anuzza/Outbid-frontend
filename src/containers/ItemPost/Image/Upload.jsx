@@ -15,10 +15,11 @@ const Upload = ({ images, setImages, setImageSrc, imageSrc }) => {
     setImages(imageList);
     setImageSrc(imageList.map((image) => image.data_url));
   };
+
   const onError = () => {};
   const printjson = () => {
-    // console.log(images);
-    // console.log(imageSrc);
+    console.log(images);
+    console.log(imageSrc);
     addToast("Successfully uploaded the picture!", { appearance: "success" });
   };
 
