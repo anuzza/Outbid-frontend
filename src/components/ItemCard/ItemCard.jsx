@@ -1,11 +1,18 @@
 import React from "react";
 import "./ItemCard.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const ItemCard = (props) => {
-  return <Link to="/details">
-    <div className="card">{props.children}</div>
-    </Link>
+  const history = useHistory();
+  const clickHandler = () => {
+    history.push("/details");
+  };
+
+  return (
+    <div className="card" onClick={clickHandler}>
+      {props.children}
+    </div>
+  );
 };
 
 export default ItemCard;

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import Landing from "./containers/Landing/Landing";
 import Auth from "./containers/Auth/Auth";
-import Details from "./containers/Details/Details"
+import Details from "./containers/ItemDetails/Details";
 import ItemPost from "./containers/ItemPost/ItemPost";
 import Navigation from "./components/Navigation/Navigation";
 import { ToastProvider } from "react-toast-notifications";
