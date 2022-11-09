@@ -1,6 +1,6 @@
 .card {
   background: #fff;
-  max-width: 280px;
+  width: 280px;
   height: 350px;
   position: relative;
   display: inline-block;
