@@ -58,6 +58,7 @@ const App = () => {
           <Route path="/" exact component={Landing} />
           <Route path="/auth" exact component={() => <Auth />} />
           <Route path="/details" exact component={() => <Details />} />
+
           <PrivateRoute
             path="/items/new"
             exact
