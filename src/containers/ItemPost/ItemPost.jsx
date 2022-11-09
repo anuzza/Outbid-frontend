@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import "./ItemPost.css";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import { Redirect } from "react-router-dom";
-
+import { useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import BasicInfo from "./BasicInfo/Basic";
 import Upload from "./Image/Upload";
 import { useToasts } from "react-toast-notifications";
@@ -11,6 +12,8 @@ import axios from "../../utils/axios";
 import { getError } from "../../utils/error";
 
 const ItemPost = () => {
+  const history = useHistory();
+  const { id } = useParams();
   const { addToast } = useToasts();
 
   const [basicState, setBasicState] = useState({
@@ -61,13 +64,26 @@ const ItemPost = () => {
     }
 
     try {
-      const { data } = await axios.post("/items/", {
-        name,
-        description,
-        starting_amount,
-        condition,
-      });
-      console.log(data);
+      const body = { name, description, starting_amount, condition };
+      if (id) {
+        if (imageSrc.includes("spoonacular")) {
+          body.image = imageSrc;
+        }
+        body.id = id;
+      }
+      const {
+        data: { _id },
+      } = await axios.post("/items/", { ...body });
+      if (images) {
+        const fd = new FormData();
+        for (let i = 0; i < images.length; i++) {
+          fd.append("upload", images[i], images[i].name);
+        }
+
+        await axios.post(`/items/image/${_id}`, fd);
+      }
+      history.push("/my-items");
+      console.log(_id);
       addToast("Sucessfully listed the item", { appearance: "success" });
     } catch (error) {
       console.log(error.response);

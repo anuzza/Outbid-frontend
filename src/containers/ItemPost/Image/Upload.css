@@ -74,3 +74,7 @@ h3 {
 .delete:hover {
   background-color: rgb(170, 0, 0);
 }
+
+.all-btn {
+  justify-content: flex-end;
+}

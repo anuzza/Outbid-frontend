@@ -14,14 +14,12 @@ const Upload = ({ images, setImages, setImageSrc, imageSrc }) => {
   const onChange = (imageList, addUpdateIndex) => {
     setImages(imageList);
     setImageSrc(imageList.map((image) => image.data_url));
+    // addToast("Sucessfully updated the change", {
+    //   appearance: "success",
+    // });
   };
 
   const onError = () => {};
-  const printjson = () => {
-    console.log(images);
-    console.log(imageSrc);
-    addToast("Successfully uploaded the picture!", { appearance: "success" });
-  };
 
   return (
     <div className="container">
@@ -93,13 +91,20 @@ const Upload = ({ images, setImages, setImageSrc, imageSrc }) => {
                       <div size="sm" style={{ width: "100%" }}>
                         <button
                           className="success"
-                          onClick={() => onImageUpdate(index)}
+                          onClick={() => {
+                            onImageUpdate(index);
+                          }}
                         >
                           Replace
                         </button>
                         <button
                           className="delete"
-                          onClick={() => onImageRemove(index)}
+                          onClick={() => {
+                            onImageRemove(index);
+                            addToast("Removed the selected image!", {
+                              appearance: "success",
+                            });
+                          }}
                         >
                           <FaTrashAlt />
                         </button>
@@ -116,15 +121,18 @@ const Upload = ({ images, setImages, setImageSrc, imageSrc }) => {
               {images.length > 0 && (
                 <>
                   <hr />
-                  <div className="all-btn">
-                    <button onClick={printjson} className="success">
-                      Upload
-                    </button>{" "}
-                    <button onClick={onImageRemoveAll} className="remove">
-                      Remove All Images
-                    </button>
-                  </div>
-                  <pre className="text-start" id="jsonprint"></pre>
+
+                  <button
+                    onClick={() => {
+                      onImageRemoveAll();
+                      addToast("Removed all the images, Upload again", {
+                        appearance: "success",
+                      });
+                    }}
+                    className="remove"
+                  >
+                    Remove All Images
+                  </button>
                 </>
               )}
             </div>

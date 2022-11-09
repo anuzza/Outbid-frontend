@@ -13,6 +13,7 @@ import useAuthStore from "./store/auth";
 import axios from "./utils/axios";
 import { getError } from "./utils/error";
 import PrivateRoute from "./components/Routing/UserRoute";
+import UserItems from "./containers/UserItems/UserItems";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -69,6 +70,12 @@ const App = () => {
             exact
             component={() => <ItemPost />}
           /> */}
+          <PrivateRoute
+            path="/my-items"
+            exact
+            component={() => <UserItems />}
+          />
+
           <PrivateRoute path="/logout" exact component={() => <Logout />} />
         </Switch>
       </div>
