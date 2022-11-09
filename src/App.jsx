@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import Landing from "./containers/Landing/Landing";
 import Auth from "./containers/Auth/Auth";
+import Details from "./containers/ItemDetails/Details";
 import ItemPost from "./containers/ItemPost/ItemPost";
 import Navigation from "./components/Navigation/Navigation";
 import { ToastProvider } from "react-toast-notifications";
@@ -56,6 +57,8 @@ const App = () => {
         <Switch>
           <Route path="/" exact component={Landing} />
           <Route path="/auth" exact component={() => <Auth />} />
+          <Route path="/details" exact component={() => <Details />} />
+
           <PrivateRoute
             path="/items/new"
             exact

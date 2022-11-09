@@ -18,7 +18,6 @@ const ItemPost = () => {
     description: "",
     starting_amount: "",
   });
-
   const [loading, setLoading] = useState(false);
 
   const [condition, setCondition] = useState("NEW");
