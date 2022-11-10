@@ -110,6 +110,7 @@ const ItemPost = () => {
                   label="Item Name"
                   value={name}
                   changed={changeBasicState}
+                  id={id}
                 />
                 <BasicInfo
                   type="text"
@@ -117,6 +118,7 @@ const ItemPost = () => {
                   label="Description/Category"
                   value={description}
                   changed={changeBasicState}
+                  id={id}
                 />
                 <BasicInfo
                   type="number"
@@ -126,6 +128,7 @@ const ItemPost = () => {
                   label="Starting Price"
                   value={starting_amount}
                   changed={changeBasicState}
+                  id={id}
                 />
 
                 <div className="dropdown">
@@ -133,7 +136,7 @@ const ItemPost = () => {
                   <select
                     value={condition}
                     name="condition"
-                    id="condition"
+                    id={id}
                     onChange={changeCondition}
                   >
                     <option value="NEW">NEW</option>
@@ -145,6 +148,7 @@ const ItemPost = () => {
           </div>
 
           <Upload
+            id={id}
             images={images}
             setImages={setImages}
             imageSrc={imageSrc}
