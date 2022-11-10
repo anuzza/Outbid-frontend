@@ -119,9 +119,7 @@ const Upload = ({ images, setImages, setImageSrc, imageSrc }) => {
                 ))}
               </div>
               {images.length > 0 && (
-                <>
-                  <hr />
-
+                <div className="buttonRemove">
                   <button
                     onClick={() => {
                       onImageRemoveAll();
@@ -133,7 +131,7 @@ const Upload = ({ images, setImages, setImageSrc, imageSrc }) => {
                   >
                     Remove All Images
                   </button>
-                </>
+                </div>
               )}
             </div>
           </>

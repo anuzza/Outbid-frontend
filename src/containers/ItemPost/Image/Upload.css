@@ -54,6 +54,11 @@
   border-radius: 5px;
 }
 
+.buttonRemove {
+  display: flex;
+  justify-content: flex-end;
+}
+
 h3 {
   text-align: center;
 }
