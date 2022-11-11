@@ -1,22 +1,15 @@
 import React from "react";
 import ImageUploading from "react-images-uploading";
 import { FaTrashAlt } from "react-icons/fa";
-import { useToasts } from "react-toast-notifications";
 import "./Upload.css";
 
-const Upload = ({ images, setImages, setImageSrc, imageSrc }) => {
+const Upload = ({ images, setImages, setImageSrc, imageSrc, id }) => {
   const maxNumber = 3;
   const acceptType = ["jpeg", "jpg", "png"];
   const maxFileSize = 5000000;
 
-  const { addToast } = useToasts();
-
-  const onChange = (imageList, addUpdateIndex) => {
+  const onChange = (imageList) => {
     setImages(imageList);
-    setImageSrc(imageList.map((image) => image.data_url));
-    // addToast("Sucessfully updated the change", {
-    //   appearance: "success",
-    // });
   };
 
   const onError = () => {};
@@ -101,9 +94,6 @@ const Upload = ({ images, setImages, setImageSrc, imageSrc }) => {
                           className="delete"
                           onClick={() => {
                             onImageRemove(index);
-                            addToast("Removed the selected image!", {
-                              appearance: "success",
-                            });
                           }}
                         >
                           <FaTrashAlt />
@@ -113,7 +103,11 @@ const Upload = ({ images, setImages, setImageSrc, imageSrc }) => {
                     <img
                       src={image["data_url"]}
                       alt=""
-                      style={{ width: "100%" }}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
                     />
                   </div>
                 ))}
@@ -123,9 +117,6 @@ const Upload = ({ images, setImages, setImageSrc, imageSrc }) => {
                   <button
                     onClick={() => {
                       onImageRemoveAll();
-                      addToast("Removed all the images, Upload again", {
-                        appearance: "success",
-                      });
                     }}
                     className="remove"
                   >

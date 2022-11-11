@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import "./ItemPost.css";
 import CustomButton from "../../components/CustomButton/CustomButton";
-import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import BasicInfo from "./BasicInfo/Basic";
 import Upload from "./Image/Upload";
 import { useToasts } from "react-toast-notifications";
-import Spinner from "../../components/Spinner/Spinner";
 import axios from "../../utils/axios";
 import { getError } from "../../utils/error";
 
@@ -18,35 +16,31 @@ const ItemPost = () => {
 
   const [basicState, setBasicState] = useState({
     name: "",
+    category: "",
     description: "",
-    starting_amount: "",
+    starting_amount: 0,
+    condition: "NEW",
   });
   const [loading, setLoading] = useState(false);
-
-  const [condition, setCondition] = useState("NEW");
-
   const [images, setImages] = useState([]);
-  const [imageSrc, setImageSrc] = useState([]);
 
-  const { name, description, starting_amount } = basicState;
-
-  const changeCondition = (e) => {
-    setCondition((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  const { name, description, category, starting_amount, condition } =
+    basicState;
 
   const changeBasicState = (e) => {
-    return setBasicState((prev) => ({
+    setBasicState((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
   };
 
-  if (loading) {
-    return <Spinner />;
-  }
-
   const checkErrors = () => {
-    return name === "" && description === "" && starting_amount === 0;
+    return (
+      name === "" ||
+      category === "" ||
+      description === "" ||
+      starting_amount <= 0
+    );
   };
 
   const handleFormSubmit = async (e) => {
@@ -63,34 +57,28 @@ const ItemPost = () => {
       return;
     }
 
-    try {
-      const body = { name, description, starting_amount, condition };
-      if (id) {
-        if (imageSrc.includes("spoonacular")) {
-          body.image = imageSrc;
-        }
-        body.id = id;
-      }
-      const {
-        data: { _id },
-      } = await axios.post("/items/", { ...body });
-      if (images) {
-        const fd = new FormData();
-        for (let i = 0; i < images.length; i++) {
-          fd.append("upload", images[i], images[i].name);
-        }
+    const formData = new FormData();
 
-        await axios.post(`/items/image/${_id}`, fd);
-      }
+    Object.keys(basicState).forEach((key) => {
+      formData.append(key, basicState[key]);
+    });
+
+    images.forEach((image) => {
+      console.log(image);
+      formData.append("files", image.file);
+    });
+
+    setLoading(true);
+    try {
+      await axios.post(`/items/`, formData);
+      setLoading(false);
       history.push("/my-items");
-      console.log(_id);
       addToast("Sucessfully listed the item", { appearance: "success" });
     } catch (error) {
-      console.log(error.response);
-      let message = getError(error);
-      addToast(message, {
+      addToast(getError(error), {
         appearance: "error",
       });
+      setLoading(false);
     }
   };
 
@@ -114,12 +102,13 @@ const ItemPost = () => {
                 />
                 <BasicInfo
                   type="text"
-                  name="description"
-                  label="Description/Category"
-                  value={description}
+                  name="category"
+                  label="Category"
+                  value={category}
                   changed={changeBasicState}
                   id={id}
                 />
+
                 <BasicInfo
                   type="number"
                   step="any"
@@ -137,7 +126,7 @@ const ItemPost = () => {
                     value={condition}
                     name="condition"
                     id={id}
-                    onChange={changeCondition}
+                    onChange={changeBasicState}
                   >
                     <option value="NEW">NEW</option>
                     <option value="USED">USED</option>
@@ -145,17 +134,24 @@ const ItemPost = () => {
                 </div>
               </div>
             </section>
+            <section className="basic-info-block">
+              <h3>Tell us more</h3>
+
+              <BasicInfo
+                textarea
+                type="text"
+                name="description"
+                label="Description"
+                value={description}
+                changed={changeBasicState}
+                id={id}
+              />
+            </section>
           </div>
 
-          <Upload
-            id={id}
-            images={images}
-            setImages={setImages}
-            imageSrc={imageSrc}
-            setImageSrc={setImageSrc}
-          />
-          <CustomButton edit type="submit">
-            List Item
+          <Upload id={id} images={images} setImages={setImages} />
+          <CustomButton edit type="submit" disabled={loading}>
+            {loading ? "Loading..." : "List Item"}
           </CustomButton>
         </form>
       </div>

@@ -1,7 +1,7 @@
 import React from "react";
 
-const UserItems = () => {
+const MyItems = () => {
   return <div>userItems</div>;
 };
 
-export default UserItems;
+export default MyItems;

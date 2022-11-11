@@ -15,9 +15,14 @@
 
 .basic-textarea {
   height: 6.805rem !important;
+  background: none;
 }
 
 input {
+  margin-top: 10px;
+  outline: none;
+}
+textarea {
   margin-top: 10px;
   outline: none;
 }

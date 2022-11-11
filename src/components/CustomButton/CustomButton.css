@@ -7,11 +7,17 @@
   color: #fff;
   font-size: 15px;
   cursor: pointer;
-  background-color: darkcyan;
+  background-color: #6c4bd1;
+}
+
+.main-button:disabled {
+  cursor: not-allowed;
+  background-color: #eee;
+  color: #000;
 }
 
 .main-button:hover {
-  background: #34373d;
+  background: #543aa2;
 }
 
 .submit {
