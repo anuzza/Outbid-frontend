@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./Landing.css";
 import SearchContainer from "../../components/SearchContainer/SearchContainer";
-import Items from "../../components/Items/Items";
 import axios from "../../utils/axios";
 import Spinner from "../../components/Spinner/Spinner";
+import ItemCard from "../../components/ItemCard/ItemCard";
 
 const Landing = () => {
   const [state, setState] = useState({
@@ -38,8 +38,11 @@ const Landing = () => {
 
   return (
     <div className="wrapper">
-      <SearchContainer />
-      {loading ? <Spinner /> : <Items items={items} />}
+      <SearchContainer className="search" />
+      {loading && <Spinner />}
+      {items.map((item) => (
+        <ItemCard key={item._id} item={item}></ItemCard>
+      ))}
     </div>
   );
 };

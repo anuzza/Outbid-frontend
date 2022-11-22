@@ -14,6 +14,7 @@ import axios from "./utils/axios";
 import { getError } from "./utils/error";
 import PrivateRoute from "./components/Routing/UserRoute";
 import UserItems from "./containers/MyItems/Mytems";
+import ItemModal from "./components/ItemModal/ItemModal";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -58,7 +59,7 @@ const App = () => {
         <Switch>
           <Route path="/" exact component={Landing} />
           <Route path="/auth" exact component={() => <Auth />} />
-          <Route path="/details/:id" exact component={() => <Details />} />
+          <Route path="/details/:id" exact component={() => <ItemModal />} />
 
           <PrivateRoute
             path="/items/new"
