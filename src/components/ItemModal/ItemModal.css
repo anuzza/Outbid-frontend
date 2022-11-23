@@ -9,13 +9,16 @@
   align-items: center;
   justify-content: center;
   position: absolute;
+  z-index: 9999;
 }
 
 .modal-content {
-  width: 500px;
+  width: 900px;
+  height: 600px;
   background-color: #fff;
   position: fixed;
   border-radius: 10px;
+  background-size: cover;
 }
 
 .modal-header,
@@ -29,8 +32,6 @@ modal-footer {
 
 .modal-body {
   padding: 10px;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
 }
 
 .closeBtn {
@@ -55,4 +56,10 @@ modal-footer {
 .closeBtn:hover {
   box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
   transform: translate(-4px, 4px);
+}
+
+.image {
+  object-fit: cover;
+  height: 300px;
+  width: 100%;
 }

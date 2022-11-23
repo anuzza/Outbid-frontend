@@ -13,18 +13,19 @@ const Landing = () => {
     error: {},
   });
 
+  const [selectedItem, setSelectedItem] = useState({});
+
   const [hidden, setHidden] = useState(true);
 
   const { items, loading } = state;
 
   const hideModal = (e) => {
     setHidden(true);
-    console.log(hidden);
   };
 
-  const showModal = (e) => {
+  const showModal = (selected) => {
+    setSelectedItem(selected);
     setHidden(false);
-    console.log(hidden);
   };
 
   useEffect(() => {
@@ -53,10 +54,10 @@ const Landing = () => {
     <div className="wrapper">
       <SearchContainer className="search" />
       {loading && <Spinner />}
+      {!hidden && <ItemModal item={selectedItem} hideModal={hideModal} />}
       {items.map((item) => (
-        <ItemCard key={item._id} item={item} showModal={showModal}></ItemCard>
+        <ItemCard key={item._id} item={item} onClick={showModal}></ItemCard>
       ))}
-      {!hidden && <ItemModal hideModal={hideModal} />}
     </div>
   );
 };
