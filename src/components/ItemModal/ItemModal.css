@@ -13,7 +13,7 @@
 }
 
 .modal-content {
-  width: 900px;
+  width: 950px;
   height: 600px;
   background-color: #fff;
   position: fixed;
@@ -58,8 +58,15 @@ modal-footer {
   transform: translate(-4px, 4px);
 }
 
-.image {
-  object-fit: cover;
-  height: 300px;
-  width: 100%;
+.images {
+  margin: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
