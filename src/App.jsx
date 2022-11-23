@@ -59,7 +59,7 @@ const App = () => {
         <Switch>
           <Route path="/" exact component={Landing} />
           <Route path="/auth" exact component={() => <Auth />} />
-          <Route path="/details/:id" exact component={() => <ItemModal />} />
+          {/* <Route path="/details/:id" exact component={() => <ItemModal />} /> */}
 
           <PrivateRoute
             path="/items/new"

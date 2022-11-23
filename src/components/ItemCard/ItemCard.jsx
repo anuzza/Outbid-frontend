@@ -3,11 +3,11 @@ import "./ItemCard.css";
 import { Link, useHistory } from "react-router-dom";
 import CustomButton from "../CustomButton/CustomButton";
 
-const ItemCard = ({ item }) => {
+const ItemCard = ({ item, showModal }) => {
   const history = useHistory();
+
   const clickHandler = (id) => {
-    console.log(id);
-    history.push(`/details/${id}`);
+    showModal();
   };
 
   return (

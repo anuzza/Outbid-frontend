@@ -4,6 +4,7 @@ import SearchContainer from "../../components/SearchContainer/SearchContainer";
 import axios from "../../utils/axios";
 import Spinner from "../../components/Spinner/Spinner";
 import ItemCard from "../../components/ItemCard/ItemCard";
+import ItemModal from "../../components/ItemModal/ItemModal";
 
 const Landing = () => {
   const [state, setState] = useState({
@@ -12,7 +13,19 @@ const Landing = () => {
     error: {},
   });
 
+  const [hidden, setHidden] = useState(true);
+
   const { items, loading } = state;
+
+  const hideModal = (e) => {
+    setHidden(true);
+    console.log(hidden);
+  };
+
+  const showModal = (e) => {
+    setHidden(false);
+    console.log(hidden);
+  };
 
   useEffect(() => {
     let isCancelled = false;
@@ -41,8 +54,9 @@ const Landing = () => {
       <SearchContainer className="search" />
       {loading && <Spinner />}
       {items.map((item) => (
-        <ItemCard key={item._id} item={item}></ItemCard>
+        <ItemCard key={item._id} item={item} showModal={showModal}></ItemCard>
       ))}
+      {!hidden && <ItemModal hideModal={hideModal} />}
     </div>
   );
 };

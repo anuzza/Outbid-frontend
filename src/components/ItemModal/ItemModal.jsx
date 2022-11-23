@@ -1,9 +1,22 @@
-import React from 'react'
+import React from "react";
+import "./ItemModal.css";
+import { RiCloseLine } from "react-icons/ri";
 
-const ItemModal = () => {
+const ItemModal = ({ hideModal }) => {
   return (
-    <div>ItemModal</div>
-  )
-}
+    <div className="modal" onClick={() => hideModal()}>
+      <div className="modal-content">
+        <div className="modal-header">
+          <h4 className="modal-title"> Modal title</h4>
+        </div>
+        <button className="closeBtn" onClick={() => hideModal()}>
+          <RiCloseLine style={{ marginBottom: "-3px" }} />
+        </button>
 
-export default ItemModal
+        <div className="modal-body"> This is modal conetent</div>
+      </div>
+    </div>
+  );
+};
+
+export default ItemModal;
