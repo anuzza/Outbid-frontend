@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import Landing from "./containers/Landing/Landing";
 import Auth from "./containers/Auth/Auth";
-import Details from "./containers/ItemDetails/Details";
 import ItemPost from "./containers/ItemPost/ItemPost";
 import Navigation from "./components/Navigation/Navigation";
 import { ToastProvider } from "react-toast-notifications";
@@ -13,8 +12,11 @@ import useAuthStore from "./store/auth";
 import axios from "./utils/axios";
 import { getError } from "./utils/error";
 import PrivateRoute from "./components/Routing/UserRoute";
-import UserItems from "./containers/MyItems/Mytems";
+import MyItems from "./containers/MyItems/Mytems";
 import ItemModal from "./components/ItemModal/ItemModal";
+import MyBids from "./containers/MyBids/MyBids";
+import MyProfile from "./containers/MyProfile/MyProfile";
+import SavedItems from "./containers/Saved/SavedItems";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -71,10 +73,17 @@ const App = () => {
             exact
             component={() => <ItemPost />}
           /> */}
+          <PrivateRoute path="/my-items" exact component={() => <MyItems />} />
+          <PrivateRoute path="/my-bids" exact component={() => <MyBids />} />
           <PrivateRoute
-            path="/my-items"
+            path="/saved-items"
             exact
-            component={() => <UserItems />}
+            component={() => <SavedItems />}
+          />
+          <PrivateRoute
+            path="/my-profile"
+            exact
+            component={() => <MyProfile />}
           />
 
           <PrivateRoute path="/logout" exact component={() => <Logout />} />

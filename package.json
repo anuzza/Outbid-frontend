@@ -20,6 +20,7 @@
     "react-simple-image-slider": "^2.4.1",
     "react-toast-notifications": "^2.5.1",
     "reactstrap": "^9.1.5",
+    "sass": "^1.56.1",
     "web-vitals": "^2.1.0",
     "yarn": "^1.22.19",
     "zustand": "^4.1.2"
