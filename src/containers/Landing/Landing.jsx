@@ -12,11 +12,8 @@ const Landing = () => {
     loading: true,
     error: {},
   });
-
-  const [selectedItem, setSelectedItem] = useState({});
-
+  const [selectedItem, setSelectedItem] = useState(null);
   const [hidden, setHidden] = useState(true);
-
   const { items, loading } = state;
 
   const hideModal = (e) => {
@@ -33,10 +30,12 @@ const Landing = () => {
     const getItems = async () => {
       try {
         const { data } = await axios.get("/items/");
-        setState({
-          ...state,
-          items: data,
-          loading: false,
+        setState((prevState) => {
+          return {
+            ...prevState,
+            items: data,
+            loading: false,
+          };
         });
       } catch (error) {
         setState({ error: error, loading: false, items: [] });
@@ -48,16 +47,32 @@ const Landing = () => {
     return () => {
       isCancelled = true;
     };
-  }, [state]);
+  }, []);
 
   return (
     <div className="wrapper">
       <SearchContainer className="search" />
-      {loading && <Spinner />}
-      {!hidden && <ItemModal item={selectedItem} hideModal={hideModal} />}
-      {items.map((item) => (
-        <ItemCard key={item._id} item={item} onClick={showModal}></ItemCard>
-      ))}
+      {!hidden && (
+        <ItemModal
+          modalHidden={hidden}
+          item={selectedItem}
+          hideModal={hideModal}
+        />
+      )}
+      {loading ? (
+        <Spinner />
+      ) : (
+        <div className="card-wrapper">
+          {items.map((item) => (
+            <ItemCard
+              modalHidden={hidden}
+              key={item._id}
+              item={item}
+              onClick={showModal}
+            ></ItemCard>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
