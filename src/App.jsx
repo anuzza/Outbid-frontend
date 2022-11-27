@@ -1,5 +1,5 @@
 import "./App.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import Landing from "./containers/Landing/Landing";
 import Auth from "./containers/Auth/Auth";
@@ -17,6 +17,7 @@ import ItemModal from "./components/ItemModal/ItemModal";
 import MyBids from "./containers/MyBids/MyBids";
 import MyProfile from "./containers/MyProfile/MyProfile";
 import SavedItems from "./containers/Saved/SavedItems";
+import ItemDetails from "./containers/ItemDetails/ItemDetails";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -26,6 +27,8 @@ const App = () => {
     setUser,
     setError,
   }));
+
+  const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
     let isCancelled = false;
@@ -59,9 +62,19 @@ const App = () => {
       <div className="App">
         <Navigation />
         <Switch>
-          <Route path="/" exact component={Landing} />
+          <Route
+            path="/"
+            exact
+            component={() => (
+              <Landing setItem={(item) => setSelectedItem(item)} />
+            )}
+          />
           <Route path="/auth" exact component={() => <Auth />} />
-          <Route path="/details/:id" exact component={() => <ItemModal />} />
+          <Route
+            path="/item-details/:id"
+            exact
+            component={() => <ItemDetails item={selectedItem} />}
+          />
 
           <PrivateRoute
             path="/items/new"
