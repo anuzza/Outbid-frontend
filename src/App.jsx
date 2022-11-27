@@ -13,7 +13,6 @@ import axios from "./utils/axios";
 import { getError } from "./utils/error";
 import PrivateRoute from "./components/Routing/UserRoute";
 import MyItems from "./containers/MyItems/Mytems";
-import ItemModal from "./components/ItemModal/ItemModal";
 import MyBids from "./containers/MyBids/MyBids";
 import MyProfile from "./containers/MyProfile/MyProfile";
 import SavedItems from "./containers/Saved/SavedItems";

@@ -2,7 +2,6 @@ import "./ItemDetails.css";
 import React, { useState, useEffect } from "react";
 import { Typography } from "antd";
 import { PlusCircleTwoTone, MinusCircleTwoTone } from "@ant-design/icons";
-import { RiCloseLine } from "react-icons/ri";
 import SimpleImageSlider from "react-simple-image-slider";
 import { BsFillBookmarkHeartFill } from "react-icons/bs";
 import { useToasts } from "react-toast-notifications";

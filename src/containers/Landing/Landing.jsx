@@ -4,8 +4,7 @@ import SearchContainer from "../../components/SearchContainer/SearchContainer";
 import axios from "../../utils/axios";
 import Spinner from "../../components/Spinner/Spinner";
 import ItemCard from "../../components/ItemCard/ItemCard";
-import ItemModal from "../../components/ItemModal/ItemModal";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Landing = ({ setItem }) => {
   const history = useHistory();
@@ -14,18 +13,8 @@ const Landing = ({ setItem }) => {
     loading: true,
     error: {},
   });
-  // const [selectedItem, setSelectedItem] = useState(null);
-  const [hidden, setHidden] = useState(true);
+
   const { items, loading } = state;
-
-  // const hideModal = (e) => {
-  //   setHidden(true);
-  // };
-
-  // const showModal = (selected) => {
-  //   setSelectedItem(selected);
-  //   setHidden(false);
-  // };
 
   useEffect(() => {
     let isCancelled = false;
@@ -54,20 +43,13 @@ const Landing = ({ setItem }) => {
   return (
     <div className="wrapper">
       <SearchContainer className="search" />
-      {/* {!hidden && (
-        <ItemModal
-          modalHidden={hidden}
-          item={selectedItem}
-          hideModal={hideModal}
-        />
-      )} */}
+
       {loading ? (
         <Spinner />
       ) : (
         <div className="card-wrapper">
           {items.map((item) => (
             <ItemCard
-              modalHidden={hidden}
               key={item._id}
               item={item}
               onClick={() => {
