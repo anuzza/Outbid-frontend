@@ -85,7 +85,11 @@ const App = () => {
             exact
             component={() => <ItemPost />}
           /> */}
-          <PrivateRoute path="/my-items" exact component={() => <MyItems />} />
+          <PrivateRoute
+            path="/my-items"
+            exact
+            component={() => <MyItems setItem={selectedItem} />}
+          />
           <PrivateRoute path="/my-bids" exact component={() => <MyBids />} />
           <PrivateRoute
             path="/saved-items"
