@@ -4,6 +4,7 @@ import { Typography } from "antd";
 import { PlusCircleTwoTone, MinusCircleTwoTone } from "@ant-design/icons";
 import SimpleImageSlider from "react-simple-image-slider";
 import { BsFillBookmarkHeartFill } from "react-icons/bs";
+import { FiTrash2 } from "react-icons/fi";
 import { useToasts } from "react-toast-notifications";
 import { Button, CircularProgress } from "@material-ui/core";
 import Moment from "react-moment";
@@ -11,28 +12,69 @@ import axios from "../../utils/axios";
 import { getError } from "../../utils/error";
 import { useHistory, useParams } from "react-router-dom";
 import Spinner from "../../components/Spinner/Spinner";
+import useAuthStore from "../../store/auth";
 
 const { Title } = Typography;
 
 const bidIncrement = 10;
 
 const ItemDetails = () => {
+  const user = useAuthStore((state) => state.user);
   const [state, setState] = useState({
-    item: {},
+    item: null,
     itemLoading: true,
-    error: {},
   });
 
   const { item, itemLoading } = state;
-  const [bidAmount, setBidAmount] = useState(item.current_bid + bidIncrement);
+  const [bidAmount, setBidAmount] = useState(0);
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   const { addToast } = useToasts();
-  const [dark, setDark] = useState(false);
-  let { id } = useParams();
+  const { id } = useParams();
+  const [dark, setDark] = useState(
+    user && user.savedItems.find(({ item }) => item._id === id)
+  );
+
+  useEffect(() => {
+    let isCancelled = false;
+    const getItembyID = async (id) => {
+      try {
+        const { data } = await axios.get(`/items/${id}`);
+        setState((prevState) => {
+          return {
+            ...prevState,
+            item: data,
+            itemLoading: false,
+          };
+        });
+        setBidAmount(data?.current_bid + bidIncrement);
+      } catch (error) {
+        addToast(getError(error), {
+          appearance: "error",
+          autoDismiss: false,
+        });
+        setState({ itemLoading: false, item: null });
+      }
+    };
+
+    if (!isCancelled) {
+      getItembyID(id);
+    }
+    return () => {
+      isCancelled = true;
+    };
+  }, [addToast, id]);
 
   const addBidHandler = async (e) => {
     if (loading) {
+      return;
+    }
+
+    if (!user) {
+      history.push("/auth");
+      addToast("Please login to bid on any items!", {
+        appearance: "warning",
+      });
       return;
     }
 
@@ -54,30 +96,37 @@ const ItemDetails = () => {
     setLoading(false);
   };
 
-  useEffect(() => {
-    let isCancelled = false;
-    const getItembyID = async (id) => {
-      try {
-        const { data } = await axios.get(`/items/${id}`);
-        setState((prevState) => {
-          return {
-            ...prevState,
-            item: data,
-            itemLoading: false,
-          };
-        });
-      } catch (error) {
-        setState({ error: error, itemLoading: false, items: [] });
-      }
-    };
-
-    if (!isCancelled) {
-      getItembyID(id);
+  const onDelete = async () => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this item?"
+    );
+    if (!confirmed) {
+      return;
     }
-    return () => {
-      isCancelled = true;
-    };
-  }, [id]);
+
+    try {
+      await axios.delete(`/items/${id}`);
+      addToast("Item Succesfully Deleted!", {
+        appearance: "success",
+      });
+      history.push("/my-items");
+    } catch (error) {
+      addToast(getError(error), {
+        appearance: "error",
+      });
+    }
+  };
+
+  const onToggleBookmark = async () => {
+    try {
+      await axios.post(`/save-item/${id}`);
+      setDark((prev) => !prev);
+    } catch (error) {
+      addToast(getError(error), {
+        appearance: "error",
+      });
+    }
+  };
 
   return (
     <div className="item-wrapper">
@@ -92,14 +141,26 @@ const ItemDetails = () => {
                 <div className="modal-category">{item?.category}</div>
               </div>
 
-              <BsFillBookmarkHeartFill
-                size={35}
-                cursor="pointer"
-                fill={!dark ? "grey" : "#6c4bd1"}
-                onClick={() => {
-                  setDark((prev) => !prev);
-                }}
-              />
+              <div className="item-details-action-buttons">
+                {item &&
+                  user &&
+                  item?.creator.toString() === user?._id.toString() && (
+                    <BsFillBookmarkHeartFill
+                      size={30}
+                      cursor="pointer"
+                      fill={!dark ? "grey" : "#6c4bd1"}
+                      onClick={onToggleBookmark}
+                    />
+                  )}
+                {item?.creator.toString() === user?._id.toString() && (
+                  <FiTrash2
+                    size={30}
+                    color="#ff6666"
+                    cursor="pointer"
+                    onClick={onDelete}
+                  />
+                )}
+              </div>
             </div>
 
             <div className="images">
@@ -107,7 +168,7 @@ const ItemDetails = () => {
                 className="slider"
                 width={800}
                 height={500}
-                images={item.images}
+                images={item ? item.images : []}
                 showBullets={true}
                 showNavs={true}
               />
@@ -119,7 +180,7 @@ const ItemDetails = () => {
             <div className="item-details">
               <span className="bid-amount">${item?.current_bid}</span>
               <span className="inst">
-                Starting Bid (${item.starting_amount})
+                Starting Bid (${item?.starting_amount})
               </span>
 
               <div

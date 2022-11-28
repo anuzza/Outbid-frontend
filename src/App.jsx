@@ -1,5 +1,5 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import Landing from "./containers/Landing/Landing";
 import Auth from "./containers/Auth/Auth";
@@ -21,13 +21,12 @@ import ItemDetails from "./containers/ItemDetails/ItemDetails";
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
+
 const App = () => {
   const { setUser, setError } = useAuthStore(({ setUser, setError }) => ({
     setUser,
     setError,
   }));
-
-  const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
     let isCancelled = false;
@@ -61,18 +60,12 @@ const App = () => {
       <div className="App">
         <Navigation />
         <Switch>
-          <Route
-            path="/"
-            exact
-            component={() => (
-              <Landing setItem={(item) => setSelectedItem(item)} />
-            )}
-          />
+          <Route path="/" exact component={() => <Landing />} />
           <Route path="/auth" exact component={() => <Auth />} />
           <Route
             path="/item-details/:id"
             exact
-            component={() => <ItemDetails item={selectedItem} />}
+            component={() => <ItemDetails />}
           />
 
           <PrivateRoute
@@ -80,16 +73,12 @@ const App = () => {
             exact
             component={() => <ItemPost />}
           />
-          {/* <PrivateRoute
-            path="/items/:id"
+          <PrivateRoute
+            path="/items/edit/:id"
             exact
             component={() => <ItemPost />}
-          /> */}
-          <PrivateRoute
-            path="/my-items"
-            exact
-            component={() => <MyItems setItem={selectedItem} />}
           />
+          <PrivateRoute path="/my-items" exact component={() => <MyItems />} />
           <PrivateRoute path="/my-bids" exact component={() => <MyBids />} />
           <PrivateRoute
             path="/saved-items"

@@ -4,14 +4,16 @@ import "./MyItems.css";
 import axios from "../../utils/axios";
 import Spinner from "../../components/Spinner/Spinner";
 import ItemCard from "../../components/ItemCard/ItemCard";
+import { getError } from "../../utils/error";
+import { useToasts } from "react-toast-notifications";
 
-const MyItems = ({setItem}) => {
+const MyItems = () => {
   const history = useHistory();
   const [state, setState] = useState({
     items: [],
     loading: true,
-    error: {},
   });
+  const { addToast } = useToasts;
 
   const { items, loading } = state;
 
@@ -28,7 +30,10 @@ const MyItems = ({setItem}) => {
           };
         });
       } catch (error) {
-        setState({ error: error, loading: false, items: [] });
+        setState({ loading: false, items: [] });
+        addToast(getError(error), {
+          appearance: "error",
+        });
       }
     };
     if (!isCancelled) {
@@ -44,18 +49,31 @@ const MyItems = ({setItem}) => {
       {loading ? (
         <Spinner />
       ) : (
-        <div className="card-wrapper">
-          {items.map((item) => (
-            <ItemCard
-              key={item._id}
-              item={item}
-              onClick={() => {
-                history.push(`/item-details/${item._id}`);
-                setItem(item);
-              }}
-            ></ItemCard>
-          ))}
-        </div>
+        <>
+          <div className="items-header">
+            <span className="items-header-title">My Items</span>
+            <span className="items-header-caption">
+              These are all items listed by you!
+            </span>
+          </div>
+          <div className="card-wrapper">
+            {items?.length === 0 ? (
+              <span className="placeholder">
+                You haven't created any items yet!!
+              </span>
+            ) : (
+              items.map((item) => (
+                <ItemCard
+                  key={item._id}
+                  item={item}
+                  onClick={() => {
+                    history.push(`/item-details/${item._id}`);
+                  }}
+                ></ItemCard>
+              ))
+            )}
+          </div>
+        </>
       )}
     </div>
   );

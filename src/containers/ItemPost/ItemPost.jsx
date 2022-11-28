@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./ItemPost.css";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import { useHistory } from "react-router-dom";
-import { useParams } from "react-router-dom";
 import BasicInfo from "./BasicInfo/Basic";
 import Upload from "./Image/Upload";
 import { useToasts } from "react-toast-notifications";
@@ -11,7 +10,6 @@ import { getError } from "../../utils/error";
 
 const ItemPost = () => {
   const history = useHistory();
-  const { id } = useParams();
   const { addToast } = useToasts();
 
   const [basicState, setBasicState] = useState({
@@ -98,7 +96,6 @@ const ItemPost = () => {
                   label="Item Name"
                   value={name}
                   changed={changeBasicState}
-                  id={id}
                 />
                 <BasicInfo
                   type="text"
@@ -106,7 +103,6 @@ const ItemPost = () => {
                   label="Category"
                   value={category}
                   changed={changeBasicState}
-                  id={id}
                 />
 
                 <BasicInfo
@@ -117,7 +113,6 @@ const ItemPost = () => {
                   label="Starting Price"
                   value={starting_amount}
                   changed={changeBasicState}
-                  id={id}
                 />
 
                 <div className="dropdown">
@@ -125,7 +120,6 @@ const ItemPost = () => {
                   <select
                     value={condition}
                     name="condition"
-                    id={id}
                     onChange={changeBasicState}
                   >
                     <option value="NEW">NEW</option>
@@ -144,12 +138,11 @@ const ItemPost = () => {
                 label="Description"
                 value={description}
                 changed={changeBasicState}
-                id={id}
               />
             </section>
           </div>
 
-          <Upload id={id} images={images} setImages={setImages} />
+          <Upload images={images} setImages={setImages} />
           <CustomButton edit type="submit" disabled={loading}>
             {loading ? "Loading..." : "List Item"}
           </CustomButton>

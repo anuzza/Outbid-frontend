@@ -5,14 +5,16 @@ import axios from "../../utils/axios";
 import Spinner from "../../components/Spinner/Spinner";
 import ItemCard from "../../components/ItemCard/ItemCard";
 import { useHistory } from "react-router-dom";
+import { useToasts } from "react-toast-notifications";
+import { getError } from "../../utils/error";
 
-const Landing = ({ setItem }) => {
+const Landing = () => {
   const history = useHistory();
   const [state, setState] = useState({
     items: [],
     loading: true,
-    error: {},
   });
+  const { addToast } = useToasts();
 
   const { items, loading } = state;
 
@@ -29,7 +31,10 @@ const Landing = ({ setItem }) => {
           };
         });
       } catch (error) {
-        setState({ error: error, loading: false, items: [] });
+        setState({ loading: false, items: [] });
+        addToast(getError(error), {
+          appearance: "error",
+        });
       }
     };
     if (!isCancelled) {
@@ -38,7 +43,7 @@ const Landing = ({ setItem }) => {
     return () => {
       isCancelled = true;
     };
-  }, []);
+  }, [addToast]);
 
   return (
     <div className="wrapper">
@@ -54,7 +59,6 @@ const Landing = ({ setItem }) => {
               item={item}
               onClick={() => {
                 history.push(`/item-details/${item._id}`);
-                setItem(item);
               }}
             ></ItemCard>
           ))}

@@ -1,5 +1,6 @@
 import create from "zustand";
 import { devtools } from "zustand/middleware";
+import { setAuthToken } from "../utils/axios";
 
 const authStore = (set) => ({
   user: null,
@@ -16,6 +17,7 @@ const authStore = (set) => ({
   setUser: (user, token) =>
     set((state) => {
       localStorage.setItem("token", token);
+      setAuthToken(token);
       return {
         ...state,
         user,
@@ -27,7 +29,7 @@ const authStore = (set) => ({
   signout: () =>
     set((state) => {
       localStorage.removeItem("token");
-      return { ...state, user: null, loading: false, error: "" };
+      return { ...state, user: null, loading: false, error: "", token: null };
     }),
   setError: (msg) =>
     set((state) => ({

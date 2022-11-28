@@ -8,7 +8,7 @@ const SearchContainer = () => {
       <div className="search-tools">
         <div className="search-tools-meta ">
           <SearchBar />
-          <div className="filter-sort-organization">
+          {/* <div className="filter-sort-organization">
             <div className="toggle-filters">
               <span className="filter-sliders"></span>
               <i
@@ -23,7 +23,7 @@ const SearchContainer = () => {
               <span className="reset">Reset</span>
               <div className="guided-search-breadcrumbs-list"></div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

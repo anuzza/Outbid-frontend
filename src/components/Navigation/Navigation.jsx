@@ -6,7 +6,10 @@ import useAuthStore from "../../store/auth";
 import NavItems from "./NavItems/NavItems";
 
 const Navigation = () => {
-  const user = useAuthStore((state) => state.user);
+  const { token } = useAuthStore(({ token }) => ({
+    token,
+  }));
+  const isAuthenticated = token != null;
   const history = useHistory();
   return (
     <header className="main-header">
@@ -14,9 +17,9 @@ const Navigation = () => {
         OutBid
       </h1>
 
-      <NavItems user={user} />
+      <NavItems isAuthenticated={isAuthenticated} />
 
-      {!user ? (
+      {!isAuthenticated ? (
         <Link to="/auth">
           <AuthButton>Sign In</AuthButton>
         </Link>
