@@ -42,7 +42,7 @@ const MyItems = () => {
     return () => {
       isCancelled = true;
     };
-  }, []);
+  }, [addToast]);
 
   return (
     <div className="wrapper">

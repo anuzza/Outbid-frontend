@@ -12,10 +12,6 @@
   transform: scale(1.2);
 }
 
-.activeNav {
-
-  
-}
 .nav_link a {
   transition: all 0.3s ease 0s;
   text-decoration: none;

@@ -1,4 +1,5 @@
 .item_card {
+  position: relative;
   cursor: pointer;
   display: flex;
   overflow: hidden;
@@ -17,6 +18,32 @@
   width: 300px;
 }
 
+.item-expired {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(71, 70, 70, 0.861);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.item-expired span {
+  z-index: 10000000;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #ff6666;
+}
+
+.item-expired .remove-item {
+  font-size: 1rem;
+  display: flex;
+  color: #000;
+  align-items: center;
+}
+
 .item_card:hover {
   transform: translateY(-0.5rem) scale(1.0125);
   box-shadow: 0 0.5em 3rem -1rem rgba(0, 0, 0, 0.5);
@@ -30,8 +57,8 @@
 
 .tags {
   display: flex;
-  gap: 5px;
   margin-bottom: 10px;
+  justify-content: space-between;
 }
 
 .tag {
@@ -41,6 +68,8 @@
   font-size: 12px;
   font-weight: 600;
   color: #788697;
+  align-self: center;
+  text-align: center;
 }
 
 .item-detail {
@@ -56,4 +85,24 @@
 
 .item-detail .amount {
   font-weight: 600;
+}
+
+.prices {
+  display: flex;
+  flex-direction: column;
+}
+
+.bid {
+  font-weight: 500;
+  font-size: 14px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.msg {
+  color: red;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 5px;
 }

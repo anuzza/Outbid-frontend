@@ -7,9 +7,13 @@ import ItemCard from "../../components/ItemCard/ItemCard";
 import { useHistory } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { getError } from "../../utils/error";
+import useAuthStore from "../../store/auth";
 
 const Landing = () => {
   const history = useHistory();
+  const user = useAuthStore((state) => state.user);
+  const [searchTerm, setSearchTerm] = useState("");
+
   const [state, setState] = useState({
     items: [],
     loading: true,
@@ -45,23 +49,36 @@ const Landing = () => {
     };
   }, [addToast]);
 
+  const filteredItems = items.filter(
+    ({ name, category }) =>
+      name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      category.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="wrapper">
-      <SearchContainer className="search" />
+      <SearchContainer
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        className="search"
+      />
 
       {loading ? (
         <Spinner />
       ) : (
         <div className="card-wrapper">
-          {items.map((item) => (
-            <ItemCard
-              key={item._id}
-              item={item}
-              onClick={() => {
-                history.push(`/item-details/${item._id}`);
-              }}
-            ></ItemCard>
-          ))}
+          {filteredItems.map(
+            (item) =>
+              item?.creator.toString() !== user?._id.toString() && (
+                <ItemCard
+                  key={item._id}
+                  item={item}
+                  onClick={(selected) => {
+                    history.push(`/item-details/${selected._id}`);
+                  }}
+                ></ItemCard>
+              )
+          )}
         </div>
       )}
     </div>

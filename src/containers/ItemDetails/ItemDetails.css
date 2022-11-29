@@ -120,3 +120,24 @@
   font-weight: 100;
   color: "#787886";
 }
+
+.item-des {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.item-summary {
+  display: flex;
+  flex-direction: column;
+}
+
+.rsis-image {
+  object-fit: cover !important;
+  width: 800px !important;
+  height: 500px !important;
+  background-size: contain !important;
+}
+
+.rsis-container {
+  overflow: hidden !important;
+}

@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import "./SearchBar.css";
 import { FaSearch } from "react-icons/fa";
 
-const SearchBar = () => {
-  const [recipeName, setRecipeName] = useState("");
-
+const SearchBar = ({ searchTerm, setSearchTerm }) => {
   return (
     <form className="search-section">
       <span className="spyglass">
@@ -12,11 +10,11 @@ const SearchBar = () => {
       </span>
       <div className="searchbox-container">
         <input
-          onChange={(e) => setRecipeName(e.target.value)}
+          onChange={(e) => setSearchTerm(e.target.value)}
           type="text"
           className="searchbox-input"
           placeholder="Search items"
-          value={recipeName}
+          value={searchTerm}
         />
       </div>
     </form>

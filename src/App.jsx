@@ -9,47 +9,38 @@ import { ToastProvider } from "react-toast-notifications";
 import Logout from "./components/Logout/Logout";
 import { setAuthToken } from "./utils/axios";
 import useAuthStore from "./store/auth";
-import axios from "./utils/axios";
-import { getError } from "./utils/error";
 import PrivateRoute from "./components/Routing/UserRoute";
 import MyItems from "./containers/MyItems/Mytems";
 import MyBids from "./containers/MyBids/MyBids";
 import MyProfile from "./containers/MyProfile/MyProfile";
 import SavedItems from "./containers/Saved/SavedItems";
 import ItemDetails from "./containers/ItemDetails/ItemDetails";
+import { loadUser } from "./hooks/loadUser";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
 
 const App = () => {
-  const { setUser, setError } = useAuthStore(({ setUser, setError }) => ({
-    setUser,
-    setError,
-  }));
+  const { setUser, authStart, setError } = useAuthStore(
+    ({ setUser, authStart, setError }) => ({
+      setUser,
+      setError,
+      authStart,
+    })
+  );
 
   useEffect(() => {
     let isCancelled = false;
-    const loadUser = async () => {
-      try {
-        const {
-          data: { user, token },
-        } = await axios.get("/users/me");
-        setUser(user, token);
-      } catch (error) {
-        const err = getError(error);
-        setError(err);
-        console.log(err);
-      }
-    };
     if (!isCancelled) {
-      loadUser();
+      authStart();
+      loadUser(setUser, setError);
     }
 
     return () => {
       isCancelled = true;
     };
-  }, [setError, setUser]);
+  }, [setError, authStart, setUser]);
 
   return (
     <ToastProvider

@@ -8,6 +8,7 @@ import { Redirect } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import useAuthStore from "../../store/auth";
 import { getError } from "../../utils/error";
+import { loadUser } from "../../hooks/loadUser";
 
 const Auth = () => {
   const { setUser, authStart, setError, user, loading } = useAuthStore(
@@ -58,6 +59,8 @@ const Auth = () => {
         appearance: "error",
       });
     }
+
+    loadUser(setUser, setError);
   };
 
   const handleSignupSubmit = async (e) => {
@@ -82,6 +85,10 @@ const Auth = () => {
       });
     }
   };
+
+  if (!user && loading) {
+    return <Spinner />;
+  }
 
   if (user) {
     return <Redirect to="/" />;

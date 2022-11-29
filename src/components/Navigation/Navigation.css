@@ -6,25 +6,15 @@
   align-items: center;
   padding: 30px 4%;
   background-color: #5c4ebd;
-
   text-transform: uppercase;
   color: #fff;
   z-index: 100;
 }
 
-.logo {
-  text-transform: none;
+.main-header span {
+  font-size: 1.6rem;
+  font-weight: 600;
   cursor: pointer;
-  width: 50px;
   margin-right: auto;
   color: #fff;
 }
-
-/*
-background-color: #FD703F
-background-color: #F27877
-background-color: #4EB9B3
-background-color:#27357E
-backgrounf-color: #FFA963
-#943d24;
-*/

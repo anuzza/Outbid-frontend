@@ -13,13 +13,21 @@ import { getError } from "../../utils/error";
 import { useHistory, useParams } from "react-router-dom";
 import Spinner from "../../components/Spinner/Spinner";
 import useAuthStore from "../../store/auth";
+import { loadUser } from "../../hooks/loadUser";
 
 const { Title } = Typography;
 
 const bidIncrement = 10;
 
 const ItemDetails = () => {
-  const user = useAuthStore((state) => state.user);
+  const { setUser, setError, user } = useAuthStore(
+    ({ setUser, setError, user }) => ({
+      setUser,
+      setError,
+      user,
+    })
+  );
+
   const [state, setState] = useState({
     item: null,
     itemLoading: true,
@@ -32,7 +40,7 @@ const ItemDetails = () => {
   const { addToast } = useToasts();
   const { id } = useParams();
   const [dark, setDark] = useState(
-    user && user.savedItems.find(({ item }) => item._id === id)
+    user && user?.savedItems.find(({ item }) => item._id === id)
   );
 
   useEffect(() => {
@@ -126,6 +134,7 @@ const ItemDetails = () => {
         appearance: "error",
       });
     }
+    loadUser(setUser, setError);
   };
 
   return (
@@ -144,7 +153,7 @@ const ItemDetails = () => {
               <div className="item-details-action-buttons">
                 {item &&
                   user &&
-                  item?.creator.toString() === user?._id.toString() && (
+                  item?.creator.toString() !== user?._id.toString() && (
                     <BsFillBookmarkHeartFill
                       size={30}
                       cursor="pointer"
@@ -173,7 +182,11 @@ const ItemDetails = () => {
                 showNavs={true}
               />
             </div>
-            <span>{item?.description}</span>
+            <div className="item-summary">
+              <span className="item-des">Description</span>
+              <span>Condition: {item?.condition}</span>
+              <span>{item?.description}</span>
+            </div>
           </div>
 
           <div className="modal-body">
@@ -259,14 +272,14 @@ const ItemDetails = () => {
               <div className="row-cols">
                 <div className="row">
                   <span className="key">Posted At </span>
-                  <Moment format="M/D/YYYY h:mm A z" className="value">
-                    {item?.createdAt}
+                  <Moment format="YYYY/MM/DD h:mm A z" className="value">
+                    {item?.created_at}
                   </Moment>
                 </div>
                 <div className="row">
                   <span className="key">Ending At </span>
                   <Moment format="YYYY/MM/DD h:mm A z" className="value">
-                    {item?.createdAt}
+                    {item?.end_date}
                   </Moment>
                 </div>
               </div>

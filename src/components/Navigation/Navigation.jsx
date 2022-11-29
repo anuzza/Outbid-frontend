@@ -13,9 +13,7 @@ const Navigation = () => {
   const history = useHistory();
   return (
     <header className="main-header">
-      <h1 onClick={() => history.push("/")} className="logo">
-        OutBid
-      </h1>
+      <span onClick={() => history.push("/")}>OutBid</span>
 
       <NavItems isAuthenticated={isAuthenticated} />
 

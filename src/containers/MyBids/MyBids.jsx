@@ -38,7 +38,6 @@ const MyBids = () => {
       isCancelled = true;
     };
   }, []);
-  console.log(bids);
 
   return (
     <div className="wrapper">
@@ -52,7 +51,24 @@ const MyBids = () => {
               Find your items bids here!
             </span>
           </div>
-          <div className="card-wrapper"></div>
+          <div className="card-wrapper">
+            {bids?.length === 0 ? (
+              <span className="placeholder">
+                You have not added any bids yet!!
+              </span>
+            ) : (
+              bids.map(({ amount, item, _id }) => (
+                <ItemCard
+                  key={_id}
+                  item={item}
+                  amount={amount}
+                  onClick={() => {
+                    history.push(`/item-details/${item._id}`);
+                  }}
+                ></ItemCard>
+              ))
+            )}
+          </div>
         </>
       )}
     </div>
