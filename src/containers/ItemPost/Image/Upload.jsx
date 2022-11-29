@@ -84,7 +84,8 @@ const Upload = ({ images, setImages, setImageSrc, imageSrc, id }) => {
                       <div size="sm" style={{ width: "100%" }}>
                         <button
                           className="success"
-                          onClick={() => {
+                          onClick={(e) => {
+                            e.preventDefault();
                             onImageUpdate(index);
                           }}
                         >
