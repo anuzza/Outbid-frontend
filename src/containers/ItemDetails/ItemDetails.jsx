@@ -296,7 +296,7 @@ const ItemDetails = () => {
                       local
                       className="value"
                     >
-                      {item?.created_at}
+                      {item?.createdAt}
                     </Moment>
                   </div>
                   <div className="row">

@@ -46,7 +46,7 @@ const StripeButton = ({ item, setState }) => {
       billingAddress
       shippingAddress
       description={`Your total is $${item?.current_bid}`}
-      amount={item?.current_bid}
+      amount={item?.current_bid * 100}
       panelLabel="Pay Now"
       token={onToken}
       stripeKey={publishableKey}
