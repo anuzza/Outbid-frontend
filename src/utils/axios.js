@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://localhost:8080";
+const url = "https://outbid-backend-6zv1jidj8-anuzza.vercel.app";
 
 const customAxios = axios.create({
   baseURL: url,
