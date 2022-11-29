@@ -5,6 +5,23 @@
   gap: 2rem;
   padding: 2rem auto;
   justify-content: center;
+  position: relative;
+}
+
+.alert-box {
+  position: absolute;
+  top: 70px;
+  text-align: center;
+  padding: 8px;
+  background-color: #fff;
+  left: 250px;
+  border-radius: 5px;
+}
+
+.alert-box span {
+  color: #ff6666;
+  font-size: 1.7rem;
+  font-weight: bold;
 }
 
 .item-content {

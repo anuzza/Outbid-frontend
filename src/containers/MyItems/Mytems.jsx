@@ -6,8 +6,13 @@ import Spinner from "../../components/Spinner/Spinner";
 import ItemCard from "../../components/ItemCard/ItemCard";
 import { getError } from "../../utils/error";
 import { useToasts } from "react-toast-notifications";
+import useAuthStore from "../../store/auth";
 
 const MyItems = () => {
+  const { user } = useAuthStore(({ user }) => ({
+    user,
+  }));
+
   const history = useHistory();
   const [state, setState] = useState({
     items: [],
@@ -64,6 +69,7 @@ const MyItems = () => {
             ) : (
               items.map((item) => (
                 <ItemCard
+                  user={user}
                   key={item._id}
                   item={item}
                   onClick={() => {

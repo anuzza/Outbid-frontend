@@ -69,7 +69,7 @@ const Landing = () => {
         <div className="card-wrapper">
           {filteredItems.map(
             (item) =>
-              item?.creator.toString() !== user?._id.toString() && (
+              item?.creator?.toString() !== user?._id?.toString() && (
                 <ItemCard
                   key={item._id}
                   item={item}

@@ -44,6 +44,10 @@
   align-items: center;
 }
 
+.item-expired .paid {
+  color: #fff;
+}
+
 .item_card:hover {
   transform: translateY(-0.5rem) scale(1.0125);
   box-shadow: 0 0.5em 3rem -1rem rgba(0, 0, 0, 0.5);
@@ -81,6 +85,7 @@
 
 .item-detail .title {
   font-weight: lighter;
+  max-width: 180px;
 }
 
 .item-detail .amount {
@@ -105,4 +110,18 @@
   font-weight: 500;
   font-size: 14px;
   padding: 5px;
+}
+
+.user-is-winner {
+  position: absolute;
+  z-index: 10000000;
+  font-size: 1rem;
+  color: rgb(2, 34, 7);
+  background-color: rgb(106, 231, 106);
+  text-transform: uppercase;
+  right: 0;
+  padding: 2px;
+  transform: rotate(40deg);
+  top: 20px;
+  border-radius: 0.5rem;
 }

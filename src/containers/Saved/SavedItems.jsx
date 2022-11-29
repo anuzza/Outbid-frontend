@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import axios from "../../utils/axios";
 import Spinner from "../../components/Spinner/Spinner";
 import ItemCard from "../../components/ItemCard/ItemCard";
+import useAuthStore from "../../store/auth";
 
 const SavedItems = () => {
   const history = useHistory();
@@ -10,6 +11,10 @@ const SavedItems = () => {
     items: [],
     loading: true,
   });
+
+  const { user } = useAuthStore(({ user }) => ({
+    user,
+  }));
 
   const { items, loading } = state;
 
@@ -57,6 +62,7 @@ const SavedItems = () => {
             ) : (
               items.map(({ _id, item }) => (
                 <ItemCard
+                  user={user}
                   key={_id}
                   item={item}
                   onClick={() => {

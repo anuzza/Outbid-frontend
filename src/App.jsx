@@ -12,10 +12,10 @@ import useAuthStore from "./store/auth";
 import PrivateRoute from "./components/Routing/UserRoute";
 import MyItems from "./containers/MyItems/Mytems";
 import MyBids from "./containers/MyBids/MyBids";
-import MyProfile from "./containers/MyProfile/MyProfile";
 import SavedItems from "./containers/Saved/SavedItems";
 import ItemDetails from "./containers/ItemDetails/ItemDetails";
 import { loadUser } from "./hooks/loadUser";
+import NotFound from "./components/404/NotFound";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -64,11 +64,7 @@ const App = () => {
             exact
             component={() => <ItemPost />}
           />
-          <PrivateRoute
-            path="/items/edit/:id"
-            exact
-            component={() => <ItemPost />}
-          />
+
           <PrivateRoute path="/my-items" exact component={() => <MyItems />} />
           <PrivateRoute path="/my-bids" exact component={() => <MyBids />} />
           <PrivateRoute
@@ -76,13 +72,9 @@ const App = () => {
             exact
             component={() => <SavedItems />}
           />
-          <PrivateRoute
-            path="/my-profile"
-            exact
-            component={() => <MyProfile />}
-          />
 
           <PrivateRoute path="/logout" exact component={() => <Logout />} />
+          <Route component={NotFound} />
         </Switch>
       </div>
     </ToastProvider>

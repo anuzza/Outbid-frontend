@@ -56,7 +56,7 @@ const ItemPost = () => {
       return;
     }
 
-    if (end_date.getDate() === today.getDate()) {
+    if (end_date.getTime() <= today.getTime()) {
       addToast(
         "The end date for the auction cannot be today!! Please select a later end date!",
         {
@@ -85,7 +85,6 @@ const ItemPost = () => {
     });
 
     images.forEach((image) => {
-      console.log(image);
       formData.append("files", image.file);
     });
 
@@ -156,7 +155,9 @@ const ItemPost = () => {
                   <DatePicker
                     name="end_date"
                     showTime
-                    disabledDate={(current) => current && current < new Date()}
+                    disabledDate={(current) =>
+                      current && current < today.getTime()
+                    }
                     onChange={(value) => setEndDate(value.toDate())}
                     onOk={(value) => setEndDate(value.toDate())}
                   />

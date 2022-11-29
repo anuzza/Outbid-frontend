@@ -1,43 +1,18 @@
 import React from "react";
 import "./ItemCard.css";
-import { FiTrash2 } from "react-icons/fi";
-import axios from "../../utils/axios";
-import { useHistory } from "react-router-dom";
-import { useToasts } from "react-toast-notifications";
-import { getError } from "../../utils/error";
+import { hasItemExpired } from "../../utils/checkItemExpiry";
+import StripeButton from "../StripeButton/StripeButton";
 
-const now = new Date();
-
-const ItemCard = ({ item, onClick, amount }) => {
-  const history = useHistory();
-  const { addToast } = useToasts();
-
+const ItemCard = ({ item, onClick, amount, user, setState }) => {
   const clickHandler = (selected) => {
     onClick(selected);
   };
 
-  const onDelete = async () => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this item?"
-    );
-    if (!confirmed) {
-      return;
-    }
-
-    try {
-      await axios.delete(`/items/${item?._id}`);
-      addToast("Item Succesfully Deleted!", {
-        appearance: "success",
-      });
-      history.push("/my-items");
-    } catch (error) {
-      addToast(getError(error), {
-        appearance: "error",
-      });
-    }
-  };
-
-  const itemExpired = item?.end_date <= now.toISOString();
+  const itemExpired = hasItemExpired(item);
+  const itemBelongsToUser =
+    item && user && item?.creator?.toString() === user?._id?.toString();
+  const itemWinnerIsUser =
+    item && user && item?.winner?.toString() === user?._id?.toString();
 
   return (
     <div
@@ -45,22 +20,30 @@ const ItemCard = ({ item, onClick, amount }) => {
         cursor: itemExpired ? "default" : "pointer",
       }}
       className="item_card"
-      onClick={() => !itemExpired && clickHandler(item)}
+      onClick={() => {
+        if (itemExpired) {
+          return;
+        }
+        clickHandler(item);
+      }}
     >
       {itemExpired && (
         <div className="item-expired">
-          <span>This item has expired!</span>
-          <span className="remove-item">
-            Remove item
-            <FiTrash2
-              size={20}
-              color="#000"
-              cursor="pointer"
-              onClick={onDelete}
-            />
-          </span>
+          <span>Auction closed!!!</span>
+          {!itemBelongsToUser && itemWinnerIsUser && !item?.sold && (
+            <StripeButton item={item} setState={setState} />
+          )}
+          {!itemBelongsToUser && itemWinnerIsUser && item?.sold && (
+            <span className="paid"> ✅Paid✅ </span>
+          )}
         </div>
       )}
+      {itemExpired && itemWinnerIsUser && (
+        <div className="user-is-winner">
+          <span> Winner</span>
+        </div>
+      )}
+
       <img
         style={{
           opacity: itemExpired ? 0.1 : 1,

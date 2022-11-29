@@ -31,10 +31,6 @@ const DropDownMenu = () => {
             <DropdownItem link="/saved-items">Saved Items</DropdownItem>
             <DropdownItem link="/my-items">My Items</DropdownItem>
             <DropdownItem link="/my-bids">My Bids</DropdownItem>
-            <DropdownItem link="/my-profile">My Profile</DropdownItem>
-            <DropdownItem link="/account-settings">
-              Account Settings
-            </DropdownItem>
           </div>
         </ul>
       )}

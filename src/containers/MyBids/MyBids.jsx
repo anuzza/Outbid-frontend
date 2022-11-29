@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import axios from "../../utils/axios";
 import Spinner from "../../components/Spinner/Spinner";
 import ItemCard from "../../components/ItemCard/ItemCard";
+import useAuthStore from "../../store/auth";
 
 const MyBids = () => {
   const history = useHistory();
@@ -11,6 +12,9 @@ const MyBids = () => {
     loading: true,
     error: {},
   });
+  const { user } = useAuthStore(({ user }) => ({
+    user,
+  }));
 
   const { bids, loading } = state;
 
@@ -59,9 +63,11 @@ const MyBids = () => {
             ) : (
               bids.map(({ amount, item, _id }) => (
                 <ItemCard
+                  user={user}
                   key={_id}
                   item={item}
                   amount={amount}
+                  setState={setState}
                   onClick={() => {
                     history.push(`/item-details/${item._id}`);
                   }}
